@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artigiani</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <header class="header">
+
+            <div class="header__logo">
+                <!-- <div class="header__logo-wrap">
+                  
+                    <img src="./images/logo.svg" alt="логотип сайта">
+                </div> -->
+                <img src="./images/logo.svg" alt="логотип сайта">
+            </div>
+
+            <nav class="header__menu">
+                <ul class="header__list">
+                    <li class="header__item">
+                        <a href="" class="header__link">
+                            интернет-магазин
+                        </a>
+                    </li>
+                    <li class="header__item">
+                        <a href="" class="header__link">
+                            подарочные сертификаты
+                        </a>
+                    </li>
+                    <li class="header__item">
+                        <a href="" class="header__link">
+                            индивидуальный пошив
+                        </a>
+                    </li>
+                    <li class="header__item">
+                        <a href="" class="header__link">
+                            стилистам
+                        </a>
+                    </li>
+                    <li class="header__item">
+                        <a href="" class="header__link">
+                            контакты
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="header__location">
+
+                <div class="header__location-img">
+                    <img src="./images/map-pin.svg" alt="иконка местонахождения" class="header__location-icon">
+                </div>
+
+                <p class="header__location-text">
+                    Санкт-Петербург, Большой проспект Петроградской стороны, 13
+                    </br>
+                    <a href="">
+                        смотреть на карте
+                    </a>
+                </p>
+            </div>
+
+            <div class="header__contacts">
+                <p>
+                    8 (812) 931-31-13
+                </p>
+                <p>
+                    Работаем
+                    <b>
+                        с 11:00 до 21:00
+                    </b>
+                </p>
+                <img src="./images/facebook.svg" alt="иконка соц.сети facebook" class="header__contacts-link">
+                <img src="./images/instagram.svg" alt="иконка соц.сети instagram" class="header__contacts-link">
+                <img src="./images/telegram.svg" alt="иконка соц.сети telegram" class="header__contacts-link">
+            </div>
+            <!-- БУРГЕР -->
+            <div class="burger">
+
+                <input type="checkbox" id="check-menu">
+                <label for="check-menu" class="burger__label"></label>
+
+                <div class="burger__line burger__line_position-1"></div>
+                <div class="burger__line burger__line_position-2"></div>
+                <div class="burger__line burger__line_position-3"></div>
+                <div class="burger__line burger__line_position-4"></div>
+
+
+                <nav class="burger__nav">
+                    <a href="" class="header__link">
+                        интернет-магазин
+                    </a>
+                    <a href="" class="header__link">
+                        подарочные сертификаты
+                    </a>
+                    <a href="" class="header__link">
+                        индивидуальный пошив
+                    </a>
+                    <a href="" class="header__link">
+                        стилистам
+                    </a>
+                </nav>
+
+            </div>
+
+        </header>
+
+        <main class="content">
+
+            <!-- <section class="present">
+                <div class="present__info">
+                    <h1>
+                        бутик одежды итальянских брендов
+                    </h1>
+                    <h3>
+                        Ведущие бренды люкс и премиум-класса
+                    </h3>
+                    <div class="present__info-pass">
+                        за покупками в интернет-магазин
+                        <button>
+                            <div class="btn__line btn__line_position-one"></div>
+                            <div class="btn__line btn__line_position-two"></div>
+                        </button>
+                    </div>
+                </div>
+                <div class="present__image-one">
+                    <img src="./images/main/image-one.jpg" alt="коллекция одежды MORESCHI, Kiton">
+                </div>
+                <div class="present__image-map">
+                    <img src="./images/main/map.jpg" alt="расположение на карте">
+                </div>
+                <div class="present__image-two">
+                    <div class="image">
+                        <img src="./images/main/image-two.jpg" alt="коллекция одежды">
+                    </div>
+                    
+                </div>
+                <div class="present__image-three">
+                    <img src="./images/main/image-three.jpg" alt="коллекция одежды JACOB COHЁN">
+                </div>
+                <div class="present__image-four">
+                    <img src="./images/main/image-four.jpg" alt="коллекция одежды">
+                </div>
+            </section>
+            <section class="catalog-links">
+
+                <div class="catalog-links__general">
+
+                    <div class="catalog-links__general-mens">
+                        <h2>
+                            мужское
+                        </h2>
+                        <a href="">
+                            смотреть
+                        </a>
+                        <img src="./images/main/mens.jpg" alt="фото мужчины">
+                    </div>
+
+                    <div class="catalog-links__general-womens">
+                        <h2>
+                            женское
+                        </h2>
+                        <a href="">
+                            смотреть
+                        </a>
+                        <img src="./images/main/womens.jpg" alt="фото женщины">
+                    </div>
+                    
+                </div>
+
+                <div class="catalog-links__brands">
+
+                    <div class="catalog-links__brands_item-one">
+                        <img src="./images/main/brand-item-one.jpg" alt="фоновая картинка бренда Kiton">
+                        <img src="./images/main/brand-name-one.png" alt="логотип бренда Kiton">
+                        <a href="">
+                            смотреть
+                        </a>
+                    </div>
+                    <div class="catalog-links__brands_item-two">
+                        <img src="./images/main/brand-item-two.jpg" alt="фоновая картинка бренда Santoni">
+                        <img src="./images/main/brand-name-two.png" alt="логотип бренда Santoni">
+                        <a href="">
+                            смотреть
+                        </a>
+                    </div>
+                    <div class="catalog-links__brands_item-three">
+                        <img src="./images/main/brand-item-three.jpg" alt="фоновая картинка бренда JACOB COHЁN">
+                        <img src="./images/main/brand-name-three.png" alt="логотип бренда JACOB COHЁN">
+                        <a href="">
+                            смотреть
+                        </a>
+                    </div>
+                    <div class="catalog-links__brands_item-four">
+                        <img src="./images/main/brand-item-four.jpg" alt="фоновая картинка бренда BRUNELLO CUCINELLI">
+                        <img src="./images/main/brand-name-four.png" alt="логотип бренда BRUNELLO CUCINELLI">
+                        <a href="">
+                            смотреть
+                        </a>
+                    </div>
+                    <div class="catalog-links__brands_item-five">
+                        <img src="./images/main/brand-item-five.jpg" alt="фоновая картинка бренда SAINT LAURENT Paris">
+                        <img src="./images/main/brand-name-five.png" alt="логотип бренда SAINT LAURENT Paris">
+                        <a href="">
+                            смотреть
+                        </a>
+                    </div>
+                    <div class="catalog-links__brands_item-six">
+                        <img src="./images/main/brand-item-six.jpg" alt="фоновая картинка бренда Loro Piano">
+                        <img src="./images/main/brand-name-six.png" alt="логотип бренда Loro Piano">
+                        <a href="">
+                            смотреть
+                        </a>
+                    </div>
+
+                    <button class="catalog-links__brands-btn">
+                        смотреть все бренды
+                    </button>
+
+                </div>
+            </section> -->
+        </main>
+
+        <footer class="footer">Привет я футер</footer>
+    </div>
+
+</body>
+
+</html>
