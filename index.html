@@ -7,113 +7,112 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Artigiani</title>
     <link rel="stylesheet" href="./css/style.css">
+
 </head>
 
 <body>
     <div class="wrapper">
         <header class="header">
-
-            <div class="header__logo">
-                <!-- <div class="header__logo-wrap">
-                  
+            <div class="header__body">
+                <div class="header__logo">
                     <img src="./images/logo.svg" alt="логотип сайта">
-                </div> -->
-                <img src="./images/logo.svg" alt="логотип сайта">
-            </div>
+                </div>
 
-            <nav class="header__menu">
-                <ul class="header__list">
-                    <li class="header__item">
+                <nav class="header__menu">
+                    <ul class="header__list">
+                        <li class="header__item">
+                            <a href="" class="header__link">
+                                интернет-магазин
+                            </a>
+                        </li>
+                        <li class="header__item">
+                            <a href="" class="header__link">
+                                подарочные сертификаты
+                            </a>
+                        </li>
+                        <li class="header__item">
+                            <a href="" class="header__link">
+                                индивидуальный пошив
+                            </a>
+                        </li>
+                        <li class="header__item">
+                            <a href="" class="header__link">
+                                стилистам
+                            </a>
+                        </li>
+                        <li class="header__item">
+                            <a href="" class="header__link">
+                                контакты
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="header__location">
+
+                    <div class="header__location-img">
+                        <img src="./images/map-pin.svg" alt="иконка местонахождения" class="header__location-icon">
+                    </div>
+
+                    <p class="header__location-text">
+                        Санкт-Петербург, Большой проспект Петроградской стороны, 13
+                        </br>
+                        <a href="">
+                            смотреть на карте
+                        </a>
+                    </p>
+                </div>
+
+                <div class="header__contacts">
+                    <p>
+                        8 (812) 931-31-13
+                    </p>
+                    <p>
+                        Работаем
+                        <b>
+                            с 11:00 до 21:00
+                        </b>
+                    </p>
+                    <img src="./images/facebook.svg" alt="иконка соц.сети facebook" class="header__contacts-link">
+                    <img src="./images/instagram.svg" alt="иконка соц.сети instagram" class="header__contacts-link">
+                    <img src="./images/telegram.svg" alt="иконка соц.сети telegram" class="header__contacts-link">
+                </div>
+                <!-- БУРГЕР -->
+                <div class="burger">
+
+                    <input type="checkbox" id="check-menu">
+                    <label for="check-menu" class="burger__label"></label>
+
+                    <div class="burger__line burger__line_position-1"></div>
+                    <div class="burger__line burger__line_position-2"></div>
+                    <div class="burger__line burger__line_position-3"></div>
+                    <div class="burger__line burger__line_position-4"></div>
+
+
+                    <nav class="burger__nav">
                         <a href="" class="header__link">
                             интернет-магазин
                         </a>
-                    </li>
-                    <li class="header__item">
                         <a href="" class="header__link">
                             подарочные сертификаты
                         </a>
-                    </li>
-                    <li class="header__item">
                         <a href="" class="header__link">
                             индивидуальный пошив
                         </a>
-                    </li>
-                    <li class="header__item">
                         <a href="" class="header__link">
                             стилистам
                         </a>
-                    </li>
-                    <li class="header__item">
-                        <a href="" class="header__link">
-                            контакты
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+                    </nav>
 
-            <div class="header__location">
-
-                <div class="header__location-img">
-                    <img src="./images/map-pin.svg" alt="иконка местонахождения" class="header__location-icon">
                 </div>
-
-                <p class="header__location-text">
-                    Санкт-Петербург, Большой проспект Петроградской стороны, 13
-                    </br>
-                    <a href="">
-                        смотреть на карте
-                    </a>
-                </p>
             </div>
 
-            <div class="header__contacts">
-                <p>
-                    8 (812) 931-31-13
-                </p>
-                <p>
-                    Работаем
-                    <b>
-                        с 11:00 до 21:00
-                    </b>
-                </p>
-                <img src="./images/facebook.svg" alt="иконка соц.сети facebook" class="header__contacts-link">
-                <img src="./images/instagram.svg" alt="иконка соц.сети instagram" class="header__contacts-link">
-                <img src="./images/telegram.svg" alt="иконка соц.сети telegram" class="header__contacts-link">
-            </div>
-            <!-- БУРГЕР -->
-            <div class="burger">
-
-                <input type="checkbox" id="check-menu">
-                <label for="check-menu" class="burger__label"></label>
-
-                <div class="burger__line burger__line_position-1"></div>
-                <div class="burger__line burger__line_position-2"></div>
-                <div class="burger__line burger__line_position-3"></div>
-                <div class="burger__line burger__line_position-4"></div>
-
-
-                <nav class="burger__nav">
-                    <a href="" class="header__link">
-                        интернет-магазин
-                    </a>
-                    <a href="" class="header__link">
-                        подарочные сертификаты
-                    </a>
-                    <a href="" class="header__link">
-                        индивидуальный пошив
-                    </a>
-                    <a href="" class="header__link">
-                        стилистам
-                    </a>
-                </nav>
-
-            </div>
 
         </header>
 
         <main class="content">
-
-            <!-- <section class="present">
+            <!-- Секция - презентация бутика -->
+            <section class="content__present present">
                 <div class="present__info">
                     <h1>
                         бутик одежды итальянских брендов
@@ -121,34 +120,46 @@
                     <h3>
                         Ведущие бренды люкс и премиум-класса
                     </h3>
-                    <div class="present__info-pass">
-                        за покупками в интернет-магазин
+                    <div class="present__info-pass pass">
+                        <p>
+                            за покупками в интернет-магазин
+                        </p>
+
                         <button>
                             <div class="btn__line btn__line_position-one"></div>
                             <div class="btn__line btn__line_position-two"></div>
                         </button>
                     </div>
                 </div>
-                <div class="present__image-one">
+                <div class="wrapper-img wrapper-img__present-one present__image-one">
                     <img src="./images/main/image-one.jpg" alt="коллекция одежды MORESCHI, Kiton">
                 </div>
-                <div class="present__image-map">
+                <div class="wrapper-img wrapper-img__present-map present__image-map">
                     <img src="./images/main/map.jpg" alt="расположение на карте">
                 </div>
                 <div class="present__image-two">
-                    <div class="image">
+                    <div class="wrapper-img wrapper-img__present-two">
                         <img src="./images/main/image-two.jpg" alt="коллекция одежды">
                     </div>
-                    
+
                 </div>
                 <div class="present__image-three">
-                    <img src="./images/main/image-three.jpg" alt="коллекция одежды JACOB COHЁN">
+                    <div class="wrapper-img wrapper-img__present-three">
+                        <img src="./images/main/image-three.jpg" alt="коллекция одежды JACOB COHЁN">
+                    </div>
+
                 </div>
                 <div class="present__image-four">
-                    <img src="./images/main/image-four.jpg" alt="коллекция одежды">
+                    <div class="wrapper-img wrapper-img__present-four">
+                        <img src="./images/main/image-four.jpg" alt="коллекция одежды">
+                    </div>
+
                 </div>
             </section>
-            <section class="catalog-links">
+
+            <!-- Секция - каталог: мужское/женское -->
+
+            <section class="content__catalog-links catalog-links">
 
                 <div class="catalog-links__general">
 
@@ -159,7 +170,10 @@
                         <a href="">
                             смотреть
                         </a>
-                        <img src="./images/main/mens.jpg" alt="фото мужчины">
+                        <div class="wrapper-img wrapper-img__general">
+                            <img src="./images/main/mens.jpg" alt="мужчина">
+                        </div>
+
                     </div>
 
                     <div class="catalog-links__general-womens">
@@ -169,65 +183,610 @@
                         <a href="">
                             смотреть
                         </a>
-                        <img src="./images/main/womens.jpg" alt="фото женщины">
+                        <div class="wrapper-img wrapper-img__general">
+                            <img src="./images/main/womens.jpg" alt="женщина">
+                        </div>
+
                     </div>
-                    
+
                 </div>
 
-                <div class="catalog-links__brands">
+                <!-- Каталог - деление по брендам -->
 
-                    <div class="catalog-links__brands_item-one">
-                        <img src="./images/main/brand-item-one.jpg" alt="фоновая картинка бренда Kiton">
-                        <img src="./images/main/brand-name-one.png" alt="логотип бренда Kiton">
-                        <a href="">
-                            смотреть
-                        </a>
-                    </div>
-                    <div class="catalog-links__brands_item-two">
-                        <img src="./images/main/brand-item-two.jpg" alt="фоновая картинка бренда Santoni">
-                        <img src="./images/main/brand-name-two.png" alt="логотип бренда Santoni">
-                        <a href="">
-                            смотреть
-                        </a>
-                    </div>
-                    <div class="catalog-links__brands_item-three">
-                        <img src="./images/main/brand-item-three.jpg" alt="фоновая картинка бренда JACOB COHЁN">
-                        <img src="./images/main/brand-name-three.png" alt="логотип бренда JACOB COHЁN">
-                        <a href="">
-                            смотреть
-                        </a>
-                    </div>
-                    <div class="catalog-links__brands_item-four">
-                        <img src="./images/main/brand-item-four.jpg" alt="фоновая картинка бренда BRUNELLO CUCINELLI">
-                        <img src="./images/main/brand-name-four.png" alt="логотип бренда BRUNELLO CUCINELLI">
-                        <a href="">
-                            смотреть
-                        </a>
-                    </div>
-                    <div class="catalog-links__brands_item-five">
-                        <img src="./images/main/brand-item-five.jpg" alt="фоновая картинка бренда SAINT LAURENT Paris">
-                        <img src="./images/main/brand-name-five.png" alt="логотип бренда SAINT LAURENT Paris">
-                        <a href="">
-                            смотреть
-                        </a>
-                    </div>
-                    <div class="catalog-links__brands_item-six">
-                        <img src="./images/main/brand-item-six.jpg" alt="фоновая картинка бренда Loro Piano">
-                        <img src="./images/main/brand-name-six.png" alt="логотип бренда Loro Piano">
-                        <a href="">
-                            смотреть
-                        </a>
+                <div class="catalog-links__brands-wrp">
+
+                    <h2 class="catalog-links__brands-title">
+                        топ-бренды
+                    </h2>
+
+                    <div class="catalog-links__brands">
+
+                        <div class="catalog-links__brands_item-one">
+                            <div class="wrapper-img wrapper-img__brands">
+                                <img src="./images/main/brand-item-one.jpg" alt="водолазка, костюм">
+                            </div>
+                            <div class="wrapper-img wrapper-img__brands-title">
+                                <img src="./images/main/brand-name-one.png" alt="логотип бренда Kiton">
+                            </div>
+
+                            <a href="">
+                                смотреть
+                            </a>
+                        </div>
+                        <div class="catalog-links__brands_item-two">
+                            <div class="wrapper-img wrapper-img__brands">
+                                <img src="./images/main/brand-item-two.jpg" alt="туфли">
+                            </div>
+
+                            <div class="wrapper-img wrapper-img__brands-title">
+                                <img src="./images/main/brand-name-two.png" alt="логотип бренда Santoni">
+                            </div>
+
+                            <a href="">
+                                смотреть
+                            </a>
+                        </div>
+                        <div class="catalog-links__brands_item-three">
+                            <div class="wrapper-img wrapper-img__brands">
+                                <img src="./images/main/brand-item-three.jpg" alt="джинсы, ремень">
+                            </div>
+
+                            <div class="wrapper-img wrapper-img__brands-title">
+                                <img src="./images/main/brand-name-three.png" alt="логотип бренда JACOB COHЁN">
+                            </div>
+
+                            <a href="">
+                                смотреть
+                            </a>
+                        </div>
+                        <div class="catalog-links__brands_item-four">
+                            <div class="wrapper-img wrapper-img__brands">
+                                <img src="./images/main/brand-item-four.jpg" alt="пальто">
+                            </div>
+
+                            <div class="wrapper-img wrapper-img__brands-title">
+                                <img src="./images/main/brand-name-four.png" alt="логотип бренда BRUNELLO CUCINELLI">
+                            </div>
+
+                            <a href="">
+                                смотреть
+                            </a>
+                        </div>
+                        <div class="catalog-links__brands_item-five">
+                            <div class="wrapper-img wrapper-img__brands">
+                                <img src="./images/main/brand-item-five.jpg" alt="сумка">
+                            </div>
+
+                            <div class="wrapper-img wrapper-img__brands-title">
+                                <img src="./images/main/brand-name-five.png" alt="логотип бренда SAINT LAURENT Paris">
+                            </div>
+
+                            <a href="">
+                                смотреть
+                            </a>
+                        </div>
+                        <div class="catalog-links__brands_item-six">
+                            <div class="wrapper-img wrapper-img__brands">
+                                <img src="./images/main/brand-item-six.jpg" alt="коллекция обуви">
+                            </div>
+
+                            <div class="wrapper-img wrapper-img__brands-title">
+                                <img src="./images/main/brand-name-six.png" alt="логотип бренда Loro Piano">
+                            </div>
+
+                            <a href="">
+                                смотреть
+                            </a>
+                        </div>
+
                     </div>
 
-                    <button class="catalog-links__brands-btn">
-                        смотреть все бренды
+                    <div class="catalog-links__brands-btn">
+                        <button>
+                            смотреть все бренды
+                        </button>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- Секция - сертификаты -->
+            <section class="content__certification certification">
+
+                <div class="wrapper-img wrapper-img__certification">
+
+                    <picture>
+                        <source srcset="./images/main/certification-mobile.png" media="(max-width: 829px)" />
+
+                        <img src="./images/main/certification.jpg" />
+                    </picture>
+
+                </div>
+
+
+                <div class="certification__info">
+
+                    <p>
+                        Простое решение
+                        <br />
+                        в выборе подарка
+                        <span>
+                            мужчине
+                        </span>
+                        —
+                    </p>
+                    <h3>
+                        сертификат от Artigiani
+                    </h3>
+
+                    <p>
+                        Теперь дарить подарки друзьям и партнерам не только очень приятно, но и довольно просто
+                        —
+                        используйте в качестве подарка сертификат от бутика Artigiani.
+                    </p>
+
+                </div>
+
+                <div class="certification__pass pass">
+
+                    <p>
+                        подробнее
+                    </p>
+
+                    <button>
+                        <div class="btn__line btn__line_position-one"></div>
+                        <div class="btn__line btn__line_position-two"></div>
                     </button>
 
                 </div>
-            </section> -->
+
+            </section>
+
+            <!-- Секция - коллекция -->
+            <section class="content__collection collection">
+
+                <div class="collection__header">
+                    <h2>
+                        коллекция
+                    </h2>
+
+                    <a href="">
+                        смотреть больше
+                    </a>
+                </div>
+
+                <div class="collection__items">
+                    <div class="collection__item">
+                        <a href="" class="wrapper-img wrapper-img__collection">
+                            <img src="./images/main/collection-one.jpg" alt="спортивный костюм, футболка, кеды">
+                        </a>
+
+                        <a href="" class="collection__item-name">
+                            Спортивный костюм
+                            <span class="collection__item-name_bold">Artigiani</span>
+                            , футболка
+                            <span class="collection__item-name_bold">Artigiani</span>
+                            , кеды
+                            <span class="collection__item-name_bold">Santoni</span>
+                        </a>
+                    </div>
+                    <div class="collection__item">
+                        <a href="" class="wrapper-img wrapper-img__collection">
+                            <img src="./images/main/collection-two.jpg"
+                                alt="пуховый жилет, джинсы, футболка, кроссовки, бейсболка">
+                        </a>
+
+
+                        <a href="" class="collection__item-name">
+                            Пуховый жилет
+                            <span class="collection__item-name_bold">Kiton</span>
+                            , джинсы
+                            <span class="collection__item-name_bold">Jacob Cohen</span>
+                            , футболка
+                            <span class="collection__item-name_bold">Fedeli</span>
+                            , кроссовки
+                            <span class="collection__item-name_bold">Valentino</span>
+                            , бейсболка
+                            <span class="collection__item-name_bold">Kiton</span>
+
+                        </a>
+                    </div>
+                    <div class="collection__item">
+                        <a href="" class="wrapper-img wrapper-img__collection">
+                            <img src="./images/main/collection-three.jpg" alt="парка, джемпер, джинсы, челси">
+                        </a>
+
+                        <a href="" class="collection__item-name">
+                            Парка
+                            <span class="collection__item-name_bold">Artigiani</span>
+                            , джемпер
+                            <span class="collection__item-name_bold">Artigiani</span>
+                            , джинсы
+                            <span class="collection__item-name_bold">Jacob Cohen</span>
+                            , челси
+                            <span class="collection__item-name_bold">Santoni</span>
+
+                        </a>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Секция - звезды -->
+
+            <section class="content__shoppers shoppers">
+
+                <div class="shoppers__item">
+                    <h3>
+                        нас выбирают звезды
+                    </h3>
+                </div>
+
+                <div class="shoppers__item">
+                    <div href="" class="wrapper-img wrapper-img__shoppers">
+                        <img src="./images/main/shoppers-one.jpg" alt="Роберто Манчини">
+                    </div>
+
+                    <div class="shoppers__info">
+                        <h4>
+                            Роберто Манчини
+                        </h4>
+
+                        <p>
+                            Тренер сборной Италии по футболу
+                        </p>
+                    </div>
+                </div>
+                <div class="shoppers__item">
+                    <div href="" class="wrapper-img wrapper-img__shoppers">
+                        <img src="./images/main/shoppers-two.jpg" alt="Сергей Семак">
+                    </div>
+
+                    <div class="shoppers__info">
+                        <h4>
+                            Сергей Семак
+                        </h4>
+
+                        <p>
+                            Тренер футбольного клуба "Зенит"
+                        </p>
+                    </div>
+                </div>
+                <div class="shoppers__item">
+                    <div href="" class="wrapper-img wrapper-img__shoppers">
+                        <img src="./images/main/shoppers-three.jpg" alt="Ивица Олич">
+                    </div>
+
+                    <div class="shoppers__info">
+                        <h4>
+                            Ивица Олич
+                        </h4>
+
+                        <p>
+                            Тренер сборной Хорватии по футболу
+                        </p>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Секция - парфюм -->
+
+            <section class="content__perfume perfume">
+
+                <div class="perfume__item">
+
+                    <div href="" class="wrapper-img wrapper-img__perfume">
+                        <img src="./images/main/parfum-one.jpg"
+                            alt="флакон Maison Francis Kurkdjian Baccarat Rouge 540">
+                    </div>
+
+                    <button class="perfume__pass-perfume">
+                        парфюм
+                    </button>
+
+                    <div class="perfume__info-left">
+                        <h4>
+                            Maison
+                            <br />
+                            Francis Kurkdjian Baccarat Rouge 540
+                        </h4>
+
+                        <a href="">
+                            смотреть
+                        </a>
+                    </div>
+
+                </div>
+                <div class="perfume__item">
+                    <div href="" class="wrapper-img wrapper-img__perfume">
+                        <img src="./images/main/parfum-two.jpg" alt="флакон Dr.Vranjes Rosso Nibile">
+                    </div>
+
+                    <button class="perfume__pass-topsmell">
+                        запах месяца
+                    </button>
+
+                    <div class="perfume__info-right">
+                        <h4>
+                            Dr.Vranjes Rosso Nibile
+                        </h4>
+
+                        <a href="">
+                            смотреть
+                        </a>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Секция - пошив на заказ -->
+            <section class="content__sewing sewing">
+
+                <div class="sewing__info">
+                    <h2 class="sewing__title">
+                        пошив на заказ по технологии
+                        <span class="sewing__title_red">
+                            bespoke
+                        </span>
+                    </h2>
+
+                    <p class="sewing__text">
+                        Эксклюзивный сервис по пошиву на заказ совместно с домом Loro Piana по технологии bespoke.
+                        <br />
+                        <br />
+                        <span class="sewing__text_bold">
+                            Bespoke – это пошив по индивидуальным лекалам клиента, которые строятся конкретно под
+                            заказчика с нуля, учитывая все особенности его фигуры.
+                        </span>
+                    </p>
+                </div>
+
+                <div class="wrapper-img wrapper-img__sewing">
+                    <img src="./images/main/sewing.png" alt="конструирование костюма">
+                </div>
+
+                <div class="sewing__benefits">
+                    <ul class="sewing__list">
+
+                        <li class="sewing__item">
+
+                            <div>
+                                <img src="./images/main/sewing-icon-one.svg" alt="костюм" class="sewing__icon">
+                            </div>
+
+                            <P>
+                                Костюмы, пиджаки, рубашки, брюки.
+                            </P>
+
+                        </li>
+
+                        <li class="sewing__item">
+
+                            <div>
+                                <img src="./images/main/sewing-icon-two.svg" alt="отрез ткани" class="sewing__icon">
+                            </div>
+
+                            <P>
+                                <span class="sewing__item_bold">
+                                    500 эксклюзивных тканей
+                                </span>
+                                от Loro Piana
+                            </P>
+
+                        </li>
+
+                        <li class="sewing__item">
+
+                            <div>
+                                <img src="./images/main/sewing-icon-three.svg" alt="игла" class="sewing__icon_small">
+                            </div>
+
+                            <P>
+                                <span class="sewing__item_bold">
+                                    Ручная работа и собственное производство,
+                                </span>
+                                которое мы не боимся показать.
+                            </P>
+
+                        </li>
+
+                    </ul>
+
+                    <div class="sewing__pass pass">
+                        подробнее
+
+                        <button>
+                            <div class="btn__line btn__line_position-one"></div>
+                            <div class="btn__line btn__line_position-two"></div>
+                        </button>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Секция - сотрудничество -->
+
+            <section class="content__cooperation cooperation">
+
+                <div class="cooperation__info">
+
+                    <h2 class="cooperation__title">
+                        Приглашаем к сотрудничеству
+                        <span class="cooperation__title_bold">
+                            персональных стилистов
+                        </span>
+                        и
+                        <span class="cooperation__title_bold">
+                            VIP-шоперов
+                        </span>
+                    </h2>
+
+                    <h4 class="cooperation__subtitle">
+                        <span class="cooperation__subtitle_bold">
+                            Зарабатывайте 10%
+                        </span>
+                        с каждой покупки Вашим клиентом.
+                    </h4>
+
+                    <ul class="cooperation__list">
+                        <li class="cooperation__item">
+                            <img src="./images/main/cooperation-icon.svg" alt="галочка">
+
+                            <p class="cooperation__text">
+                                Вы можете приехать в наш бутик с клиентом и работать с ним напрямую. Или передать его
+                                нашим продавцам.
+                            </p>
+                        </li>
+                        <li class="cooperation__item">
+                            <img src="./images/main/cooperation-icon.svg" alt="галочка">
+
+                            <p class="cooperation__text">
+                                Мы можем работать с Вами по официальному договору или напрямую.
+                            </p>
+                        </li>
+                        <li class="cooperation__item">
+                            <img src="./images/main/cooperation-icon.svg" alt="галочка">
+
+                            <p class="cooperation__text">
+                                Актуальные коллекции ведущих брендов в наличии.
+                            </p>
+                        </li>
+                        <li class="cooperation__item">
+                            <img src="./images/main/cooperation-icon.svg" alt="галочка">
+
+                            <p class="cooperation__text">
+                                Можно заказать под запрос ЛЮБОЙ товар из Европы.
+                            </p>
+                        </li>
+                        <li class="cooperation__item">
+                            <img src="./images/main/cooperation-icon.svg" alt="галочка">
+
+                            <p class="cooperation__text">
+                                VIP-комната в бутике.
+                            </p>
+                        </li>
+                        <li class="cooperation__item">
+                            <img src="./images/main/cooperation-icon.svg" alt="галочка">
+
+                            <p class="cooperation__text">
+                                Профессиональные портные, которые в короткие сроки подгонят изделие.
+                            </p>
+                        </li>
+                        <li class="cooperation__item">
+                            <img src="./images/main/cooperation-icon.svg" alt="галочка">
+
+                            <p class="cooperation__text">
+                                Выездной сервис.
+                            </p>
+                        </li>
+                        <li class="cooperation__item">
+                            <img src="./images/main/cooperation-icon.svg" alt="галочка">
+
+                            <p class="cooperation__text">
+                                Те, кто работают с нами получают от 100 000 рублей в месяц! И они могут подтвердить
+                                положительный опыт сотрудничества с нами.
+                            </p>
+                        </li>
+                        <li class="cooperation__item">
+                            <img src="./images/main/cooperation-icon.svg" alt="галочка">
+
+                            <p class="cooperation__text">
+                                Вашему клиенту будет предоставлена VIP-скидка.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="cooperation__pass pass">
+
+                    <p>
+                        подробнее
+                    </p>
+
+                    <button>
+                        <div class="btn__line btn__line_position-one"></div>
+                        <div class="btn__line btn__line_position-two"></div>
+                    </button>
+
+                </div>
+
+                <div class="cooperation__img">
+                    <div href="" class="wrapper-img wrapper-img__cooperation">
+                        <img src="./images/main/cooperation.png" alt="девушка с фирменной картой и пакетом Artigiani">
+                    </div>
+                </div>
+
+
+            </section>
+
         </main>
 
-        <footer class="footer">Привет я футер</footer>
+        <footer class="footer">
+            <div class="footer__logo">
+                <img src="./images/logo.svg" alt="логотип сайта">
+            </div>
+
+
+            <ul class="footer__list">
+
+                <li class="footer__item">
+                    <a href="" class="footer__link">
+                        интернет-магазин
+                    </a>
+                </li>
+                <li class="footer__item">
+                    <a href="" class="footer__link">
+                        подарочные сертификаты
+                    </a>
+                </li>
+                <li class="footer__item">
+                    <a href="" class="footer__link">
+                        индивидуальный пошив
+                    </a>
+                </li>
+
+            </ul>
+            <div class="footer__communication">
+                <div class="footer__location">
+
+                    <div class="footer__location-img">
+                        <img src="./images/map-pin.svg" alt="иконка местонахождения" class="footer__location-icon">
+                    </div>
+
+                    <p class="footer__location-text">
+                        Санкт-Петербург,
+                        </br>
+                        Большой проспект Петроградской стороны, 13
+
+                        <a href="">
+                            смотреть на карте
+                        </a>
+                    </p>
+                </div>
+
+                <div class="footer__contacts">
+
+                    <img src="./images/facebook.svg" alt="иконка соц.сети facebook" class="footer__contacts-link">
+                    <img src="./images/instagram.svg" alt="иконка соц.сети instagram" class="footer__contacts-link">
+                    <img src="./images/telegram.svg" alt="иконка соц.сети telegram" class="footer__contacts-link">
+
+                    <p class="footer__contacts-number">
+                        8 (812) 931-31-13
+                    </p>
+                    <p class="footer__contacts-text">
+                        Работаем
+                        <span class="footer__contacts-text_bold">
+                            с 11:00 до 21:00
+                        </span>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </footer>
     </div>
 
 </body>
