@@ -73,6 +73,10 @@
     color: #353535;
 }
 
+:root {
+    color-scheme: only light;
+}
+
 .wrapper {
     display: grid;
     margin: auto;
@@ -1016,8 +1020,8 @@ a:hover {
         position: absolute;
         top: 9%;
         left: 11%;
-        color: #333333!important;
-        border: 0.7px solid #333333!important;
+        color: #333333;
+        border: 0.7px solid #333333;
 
         &:hover {
             color: #fff;
@@ -2471,14 +2475,6 @@ a:hover {
     .cooperation {
         &__img {
             left: 195px;
-        }
-    }
-}
-
-@media (prefers-color-scheme: dark) {
-    .catalog__general-mens, .catalog__general-womens {
-        h2 {
-            color: #353535!important;
         }
     }
 }
