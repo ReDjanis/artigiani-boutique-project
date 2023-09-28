@@ -5,43 +5,46 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artigiani</title>
+    <title>Artigiani - учебный проект</title>
     <link rel="stylesheet" href="./css/style.css">
 
 </head>
 
 <body>
-    <div class="wrapper">
+
+    <div class="wrapper" id="top">
+
         <header class="header">
+
             <div class="header__body">
-                <div class="header__logo">
+                <a class="header__logo" href="#top">
                     <img src="./images/logo.svg" alt="логотип сайта">
-                </div>
+                </a>
 
                 <nav class="header__menu">
                     <ul class="header__list">
                         <li class="header__item">
-                            <a href="" class="header__link">
+                            <a href="#list-one" class="header__link">
                                 интернет-магазин
                             </a>
                         </li>
                         <li class="header__item">
-                            <a href="" class="header__link">
+                            <a href="#list-two" class="header__link">
                                 подарочные сертификаты
                             </a>
                         </li>
                         <li class="header__item">
-                            <a href="" class="header__link">
+                            <a href="#list-three" class="header__link">
                                 индивидуальный пошив
                             </a>
                         </li>
                         <li class="header__item">
-                            <a href="" class="header__link">
+                            <a href="#list-four" class="header__link">
                                 стилистам
                             </a>
                         </li>
                         <li class="header__item">
-                            <a href="" class="header__link">
+                            <a href="#contacts" class="header__link">
                                 контакты
                             </a>
                         </li>
@@ -49,7 +52,6 @@
                 </nav>
 
                 <div class="header__location">
-
                     <div class="header__location-img">
                         <img src="./images/map-pin.svg" alt="иконка местонахождения" class="header__location-icon">
                     </div>
@@ -57,9 +59,9 @@
                     <p class="header__location-text">
                         Санкт-Петербург, Большой проспект Петроградской стороны, 13
                         </br>
-                        <a href="">
+                        <button class="map">
                             смотреть на карте
-                        </a>
+                        </button>
                     </p>
                 </div>
 
@@ -73,9 +75,23 @@
                             с 11:00 до 21:00
                         </b>
                     </p>
-                    <img src="./images/facebook.svg" alt="иконка соц.сети facebook" class="header__contacts-link">
-                    <img src="./images/instagram.svg" alt="иконка соц.сети instagram" class="header__contacts-link">
-                    <img src="./images/telegram.svg" alt="иконка соц.сети telegram" class="header__contacts-link">
+                    <a href='https://facebook.com' target="_blank">
+                        <svg class="header__contacts-link">
+                            <use href="./images/sprite.svg#facebook"></use>
+                        </svg>
+                    </a>
+                    <a href='https://instagram.com' target="_blank">
+                        <svg class="header__contacts-link">
+                            <use href="./images/sprite.svg#instagram"></use>
+                        </svg>
+                    </a>
+                    <a href='https://t.me/telegram' target="_blank">
+                        <svg class="header__contacts-link">
+
+                            <use href="./images/sprite.svg#telegram"></use>
+
+                        </svg>
+                    </a>
                 </div>
                 <!-- БУРГЕР -->
                 <div class="burger">
@@ -88,41 +104,134 @@
                     <div class="burger__line burger__line_position-3"></div>
                     <div class="burger__line burger__line_position-4"></div>
 
-
-                    <nav class="burger__nav">
-                        <a href="" class="header__link">
+                    <div class="burger-nav">
+                        <a href="#list-one" class="header__link">
                             интернет-магазин
                         </a>
-                        <a href="" class="header__link">
+                        <a href="#list-two" class="header__link">
                             подарочные сертификаты
                         </a>
-                        <a href="" class="header__link">
+                        <a href="#list-three" class="header__link">
                             индивидуальный пошив
                         </a>
-                        <a href="" class="header__link">
+                        <a href="#list-four" class="header__link">
                             стилистам
                         </a>
-                    </nav>
 
+                        <div class="burger-nav__info">
+                            <div class="burger-nav__location">
+
+                                <div class="burger-nav__location-img">
+                                    <img src="./images/map-pin.svg" alt="иконка местонахождения"
+                                        class="burger-nav__location-icon">
+                                </div>
+
+                                <p class="burger-nav__location-text">
+                                    Санкт-Петербург, Большой проспект Петроградской стороны, 13
+                                    </br>
+                                    <button class="map">
+                                        смотреть на карте
+                                    </button>
+                                </p>
+                            </div>
+
+                            <div class="burger-nav__contacts">
+                                <a href='https://facebook.com' target="_blank">
+                                    <svg class="burger-nav__contacts-link">
+                                        <use href="./images/sprite.svg#facebook"></use>
+                                    </svg>
+                                </a>
+                                <a href='https://instagram.com' target="_blank">
+                                    <svg class="burger-nav__contacts-link">
+                                        <use href="./images/sprite.svg#instagram"></use>
+                                    </svg>
+                                </a>
+                                <a href='https://t.me/telegram' target="_blank">
+                                    <svg class="burger-nav__contacts-link">
+
+                                        <use href="./images/sprite.svg#telegram"></use>
+
+                                    </svg>
+                                </a>
+                                <p>
+                                    8 (812) 931-31-13
+                                </p>
+                                <p>
+                                    Работаем
+                                    <b>
+                                        с 11:00 до 21:00
+                                    </b>
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
 
         </header>
 
         <main class="content">
             <!-- Секция - презентация бутика -->
             <section class="content__present present">
+
+                <div class="slider present__slider">
+                    <div class="slider__touch">
+                        <div class="slider__line" id="sliderLinePresent">
+
+                            <div class="present__item present__image-one">
+                                <div class="wrapper-img wrapper-img__present-one">
+                                    <img src="./images/main/image-one.jpg" alt="коллекция одежды MORESCHI, Kiton"
+                                        data-about="widthImage">
+                                </div>
+                            </div>
+
+                            <div class="present__item present__image-two">
+                                <div class="wrapper-img wrapper-img__present-two">
+                                    <img src="./images/main/image-two.jpg" alt="коллекция одежды">
+                                </div>
+                            </div>
+
+                            <div class="present__item present__image-three">
+                                <div class="wrapper-img wrapper-img__present-three">
+                                    <img src="./images/main/image-three.jpg" alt="коллекция одежды JACOB COHЁN"
+                                        data-about="widthImage">
+                                </div>
+                            </div>
+
+                            <div class="present__item present__image-four">
+                                <div class="wrapper-img wrapper-img__present-four">
+                                    <img src="./images/main/image-four.jpg" alt="коллекция одежды"
+                                        data-about="widthImage">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="slider__wrapper">
+                        <div class="slider__dot present__dot active__dot"></div>
+                        <div class="slider__dot present__dot"></div>
+                        <div class="slider__dot present__dot"></div>
+                        <div class="slider__dot present__dot"></div>
+                    </div>
+
+                </div>
+
                 <div class="present__info">
                     <h1>
                         бутик одежды итальянских брендов
                     </h1>
-                    <h3>
-                        Ведущие бренды люкс и премиум-класса
+
+                    <h3 id="subtitlePresent">
+                        13 лет одеваем людей с хорошим вкусом!
                     </h3>
-                    <div class="present__info-pass pass">
+
+                    <div class="pass present__info-pass">
                         <p>
-                            за покупками в интернет-магазин
+                            за покупками
+                            </br>
+                            в интернет-магазин
                         </p>
 
                         <button>
@@ -130,40 +239,35 @@
                             <div class="btn__line btn__line_position-two"></div>
                         </button>
                     </div>
-                </div>
-                <div class="wrapper-img wrapper-img__present-one present__image-one">
-                    <img src="./images/main/image-one.jpg" alt="коллекция одежды MORESCHI, Kiton">
-                </div>
-                <div class="wrapper-img wrapper-img__present-map present__image-map">
-                    <img src="./images/main/map.jpg" alt="расположение на карте">
-                </div>
-                <div class="present__image-two">
-                    <div class="wrapper-img wrapper-img__present-two">
-                        <img src="./images/main/image-two.jpg" alt="коллекция одежды">
-                    </div>
+
+                    <a href="" class="present__location">
+
+                        <div class="present__location-img">
+                            <img src="./images/map-pin.svg" alt="иконка местонахождения" class="present__location-icon">
+                        </div>
+
+                        <p class="present__location-text">
+                            Санкт-Петербург, Большой проспект Петроградской стороны, 13
+                        </p>
+
+                    </a>
 
                 </div>
-                <div class="present__image-three">
-                    <div class="wrapper-img wrapper-img__present-three">
-                        <img src="./images/main/image-three.jpg" alt="коллекция одежды JACOB COHЁN">
-                    </div>
 
+                <div class="present__map" id="list-one">
+                    <script type="text/javascript" charset="utf-8" async
+                        src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A2cb63d7573591acaacb46d70f54a15ec47c86272faec95beac98267a1ed00b9f&amp;width=100%&amp;height=240&amp;lang=ru_RU&amp;scroll=true">
+                    </script>
                 </div>
-                <div class="present__image-four">
-                    <div class="wrapper-img wrapper-img__present-four">
-                        <img src="./images/main/image-four.jpg" alt="коллекция одежды">
-                    </div>
 
-                </div>
             </section>
 
             <!-- Секция - каталог: мужское/женское -->
+            <section class="content__catalog catalog">
 
-            <section class="content__catalog-links catalog-links">
+                <div class="catalog__general">
 
-                <div class="catalog-links__general">
-
-                    <div class="catalog-links__general-mens">
+                    <div class="catalog__general-mens">
                         <h2>
                             мужское
                         </h2>
@@ -176,7 +280,7 @@
 
                     </div>
 
-                    <div class="catalog-links__general-womens">
+                    <div class="catalog__general-womens">
                         <h2>
                             женское
                         </h2>
@@ -191,17 +295,20 @@
 
                 </div>
 
-                <!-- Каталог - деление по брендам -->
+            </section>
 
-                <div class="catalog-links__brands-wrp">
+            <!-- Каталог - деление по брендам -->
+            <section class="content__catalog-brands catalog-brands">
 
-                    <h2 class="catalog-links__brands-title">
+                <div class="catalog-brands__wrp">
+
+                    <h2 class="catalog-brands__title">
                         топ-бренды
                     </h2>
 
-                    <div class="catalog-links__brands">
+                    <div class="catalog-brands__items">
 
-                        <div class="catalog-links__brands_item-one">
+                        <div class="catalog-brands__items-one">
                             <div class="wrapper-img wrapper-img__brands">
                                 <img src="./images/main/brand-item-one.jpg" alt="водолазка, костюм">
                             </div>
@@ -213,7 +320,7 @@
                                 смотреть
                             </a>
                         </div>
-                        <div class="catalog-links__brands_item-two">
+                        <div class="catalog-brands__items-two">
                             <div class="wrapper-img wrapper-img__brands">
                                 <img src="./images/main/brand-item-two.jpg" alt="туфли">
                             </div>
@@ -226,7 +333,7 @@
                                 смотреть
                             </a>
                         </div>
-                        <div class="catalog-links__brands_item-three">
+                        <div class="catalog-brands__items-three">
                             <div class="wrapper-img wrapper-img__brands">
                                 <img src="./images/main/brand-item-three.jpg" alt="джинсы, ремень">
                             </div>
@@ -239,7 +346,7 @@
                                 смотреть
                             </a>
                         </div>
-                        <div class="catalog-links__brands_item-four">
+                        <div class="catalog-brands__items-four">
                             <div class="wrapper-img wrapper-img__brands">
                                 <img src="./images/main/brand-item-four.jpg" alt="пальто">
                             </div>
@@ -252,7 +359,7 @@
                                 смотреть
                             </a>
                         </div>
-                        <div class="catalog-links__brands_item-five">
+                        <div class="catalog-brands__items-five">
                             <div class="wrapper-img wrapper-img__brands">
                                 <img src="./images/main/brand-item-five.jpg" alt="сумка">
                             </div>
@@ -265,7 +372,7 @@
                                 смотреть
                             </a>
                         </div>
-                        <div class="catalog-links__brands_item-six">
+                        <div class="catalog-brands__items-six">
                             <div class="wrapper-img wrapper-img__brands">
                                 <img src="./images/main/brand-item-six.jpg" alt="коллекция обуви">
                             </div>
@@ -281,8 +388,8 @@
 
                     </div>
 
-                    <div class="catalog-links__brands-btn">
-                        <button>
+                    <div class="catalog-brands__btn">
+                        <button id="list-two">
                             смотреть все бренды
                         </button>
                     </div>
@@ -295,15 +402,12 @@
             <section class="content__certification certification">
 
                 <div class="wrapper-img wrapper-img__certification">
-
                     <picture>
-                        <source srcset="./images/main/certification-mobile.png" media="(max-width: 829px)" />
+                        <source srcset="./images/main/certification-mobile.jpg" media="(max-width: 829px)" />
 
                         <img src="./images/main/certification.jpg" />
                     </picture>
-
                 </div>
-
 
                 <div class="certification__info">
 
@@ -316,6 +420,7 @@
                         </span>
                         —
                     </p>
+
                     <h3>
                         сертификат от Artigiani
                     </h3>
@@ -350,71 +455,84 @@
                     <h2>
                         коллекция
                     </h2>
+                </div>
 
+                <div class="slider collection__slider">
+                    <div class="slider__touch" id="touchCollection">
+                        <div class="slider__line" id="sliderLineCollection">
+                            <div class="collection__item">
+                                <a href="" class="wrapper-img wrapper-img__collection">
+                                    <img src="./images/main/collection-one.jpg" alt="спортивный костюм, футболка, кеды">
+                                </a>
+
+                                <a href="" class="collection__item-name">
+                                    Спортивный костюм
+                                    <span class="collection__item-name_bold">Artigiani</span>
+                                    , футболка
+                                    <span class="collection__item-name_bold">Artigiani</span>
+                                    , кеды
+                                    <span class="collection__item-name_bold">Santoni</span>
+                                </a>
+                            </div>
+                            <div class="collection__item">
+                                <a href="" class="wrapper-img wrapper-img__collection">
+                                    <img src="./images/main/collection-two.jpg"
+                                        alt="пуховый жилет, джинсы, футболка, кроссовки, бейсболка">
+                                </a>
+
+
+                                <a href="" class="collection__item-name">
+                                    Пуховый жилет
+                                    <span class="collection__item-name_bold">Kiton</span>
+                                    , джинсы
+                                    <span class="collection__item-name_bold">Jacob Cohen</span>
+                                    , футболка
+                                    <span class="collection__item-name_bold">Fedeli</span>
+                                    , кроссовки
+                                    <span class="collection__item-name_bold">Valentino</span>
+                                    , бейсболка
+                                    <span class="collection__item-name_bold">Kiton</span>
+
+                                </a>
+                            </div>
+                            <div class="collection__item">
+                                <a href="" class="wrapper-img wrapper-img__collection">
+                                    <img src="./images/main/collection-three.jpg" alt="парка, джемпер, джинсы, челси">
+                                </a>
+
+                                <a href="" class="collection__item-name">
+                                    Парка
+                                    <span class="collection__item-name_bold">Artigiani</span>
+                                    , джемпер
+                                    <span class="collection__item-name_bold">Artigiani</span>
+                                    , джинсы
+                                    <span class="collection__item-name_bold">Jacob Cohen</span>
+                                    , челси
+                                    <span class="collection__item-name_bold">Santoni</span>
+
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slider__wrapper">
+                        <div class="slider__dot collection__dot active__dot"></div>
+                        <div class="slider__dot collection__dot"></div>
+                        <div class="slider__dot collection__dot"></div>
+                    </div>
+
+                </div>
+
+                <div class="collection__link">
                     <a href="">
                         смотреть больше
                     </a>
                 </div>
 
-                <div class="collection__items">
-                    <div class="collection__item">
-                        <a href="" class="wrapper-img wrapper-img__collection">
-                            <img src="./images/main/collection-one.jpg" alt="спортивный костюм, футболка, кеды">
-                        </a>
-
-                        <a href="" class="collection__item-name">
-                            Спортивный костюм
-                            <span class="collection__item-name_bold">Artigiani</span>
-                            , футболка
-                            <span class="collection__item-name_bold">Artigiani</span>
-                            , кеды
-                            <span class="collection__item-name_bold">Santoni</span>
-                        </a>
-                    </div>
-                    <div class="collection__item">
-                        <a href="" class="wrapper-img wrapper-img__collection">
-                            <img src="./images/main/collection-two.jpg"
-                                alt="пуховый жилет, джинсы, футболка, кроссовки, бейсболка">
-                        </a>
-
-
-                        <a href="" class="collection__item-name">
-                            Пуховый жилет
-                            <span class="collection__item-name_bold">Kiton</span>
-                            , джинсы
-                            <span class="collection__item-name_bold">Jacob Cohen</span>
-                            , футболка
-                            <span class="collection__item-name_bold">Fedeli</span>
-                            , кроссовки
-                            <span class="collection__item-name_bold">Valentino</span>
-                            , бейсболка
-                            <span class="collection__item-name_bold">Kiton</span>
-
-                        </a>
-                    </div>
-                    <div class="collection__item">
-                        <a href="" class="wrapper-img wrapper-img__collection">
-                            <img src="./images/main/collection-three.jpg" alt="парка, джемпер, джинсы, челси">
-                        </a>
-
-                        <a href="" class="collection__item-name">
-                            Парка
-                            <span class="collection__item-name_bold">Artigiani</span>
-                            , джемпер
-                            <span class="collection__item-name_bold">Artigiani</span>
-                            , джинсы
-                            <span class="collection__item-name_bold">Jacob Cohen</span>
-                            , челси
-                            <span class="collection__item-name_bold">Santoni</span>
-
-                        </a>
-
-                    </div>
-                </div>
             </section>
 
             <!-- Секция - звезды -->
-
             <section class="content__shoppers shoppers">
 
                 <div class="shoppers__title">
@@ -424,76 +542,72 @@
                 </div>
 
                 <div class="slider shoppers__slider">
-                    <div class="slider__line">
+                    <div class="slider__touch" id="touchShoppers">
+                        <div class="slider__line" id="sliderLineShoppers">
 
-                        <div class="shoppers__item">
-                            <div href="" class="wrapper-img wrapper-img__shoppers">
-                                <img src="./images/main/shoppers-one.jpg" alt="Роберто Манчини">
+                            <div class="shoppers__item">
+                                <div href="" class="wrapper-img wrapper-img__shoppers">
+                                    <img src="./images/main/shoppers-one.jpg" alt="Роберто Манчини">
+                                </div>
+
+                                <div class="shoppers__info">
+                                    <h4>
+                                        Роберто Манчини
+                                    </h4>
+
+                                    <p>
+                                        Тренер сборной Италии по футболу
+                                    </p>
+                                </div>
                             </div>
 
-                            <div class="shoppers__info">
-                                <h4>
-                                    Роберто Манчини
-                                </h4>
+                            <div class="shoppers__item">
+                                <div href="" class="wrapper-img wrapper-img__shoppers">
+                                    <img src="./images/main/shoppers-two.jpg" alt="Сергей Семак">
+                                </div>
 
-                                <p>
-                                    Тренер сборной Италии по футболу
-                                </p>
+                                <div class="shoppers__info">
+                                    <h4>
+                                        Сергей Семак
+                                    </h4>
+
+                                    <p>
+                                        Тренер футбольного клуба "Зенит"
+                                    </p>
+                                </div>
                             </div>
+
+                            <div class="shoppers__item">
+                                <div href="" class="wrapper-img wrapper-img__shoppers">
+                                    <img src="./images/main/shoppers-three.jpg" alt="Ивица Олич">
+                                </div>
+
+                                <div class="shoppers__info">
+                                    <h4>
+                                        Ивица Олич
+                                    </h4>
+
+                                    <p>
+                                        Тренер сборной Хорватии по футболу
+                                    </p>
+                                </div>
+
+                            </div>
+
                         </div>
-
-                        <div class="shoppers__item">
-                            <div href="" class="wrapper-img wrapper-img__shoppers">
-                                <img src="./images/main/shoppers-two.jpg" alt="Сергей Семак">
-                            </div>
-
-                            <div class="shoppers__info">
-                                <h4>
-                                    Сергей Семак
-                                </h4>
-
-                                <p>
-                                    Тренер футбольного клуба "Зенит"
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="shoppers__item">
-                            <div href="" class="wrapper-img wrapper-img__shoppers">
-                                <img src="./images/main/shoppers-three.jpg" alt="Ивица Олич">
-                            </div>
-
-                            <div class="shoppers__info">
-                                <h4>
-                                    Ивица Олич
-                                </h4>
-
-                                <p>
-                                    Тренер сборной Хорватии по футболу
-                                </p>
-                            </div>
-
-                        </div>
-
                     </div>
 
-                    <!-- <div class="slider__btn-prew"></div>
-                    <div class="slider__btn-next"></div> -->
-
                     <div class="slider__wrapper">
-                        <div class="slider__dot active__dot"></div>
-                        <div class="slider__dot"></div>
-                        <div class="slider__dot"></div>
+                        <div class="slider__dot shoppers__dot active__dot"></div>
+                        <div class="slider__dot shoppers__dot"></div>
+                        <div class="slider__dot shoppers__dot"></div>
                     </div>
 
                 </div>
 
-
-
             </section>
 
             <!-- Секция - парфюм -->
-
             <section class="content__perfume perfume">
 
                 <div class="perfume__item">
@@ -534,12 +648,13 @@
                             Dr.Vranjes Rosso Nibile
                         </h4>
 
-                        <a href="">
+                        <a href="" id="list-three">
                             смотреть
                         </a>
                     </div>
 
                 </div>
+
             </section>
 
             <!-- Секция - пошив на заказ -->
@@ -618,17 +733,17 @@
                     <div class="sewing__pass pass">
                         подробнее
 
-                        <button>
+                        <button id="list-four">
                             <div class="btn__line btn__line_position-one"></div>
                             <div class="btn__line btn__line_position-two"></div>
                         </button>
 
                     </div>
                 </div>
+
             </section>
 
             <!-- Секция - сотрудничество -->
-
             <section class="content__cooperation cooperation">
 
                 <div class="cooperation__info">
@@ -735,42 +850,47 @@
 
                 <div class="cooperation__img">
                     <div href="" class="wrapper-img wrapper-img__cooperation">
-                        <img src="./images/main/cooperation.png" alt="девушка с фирменной картой и пакетом Artigiani">
-                    </div>
-                </div>
+                        <picture>
+                            <source srcset="./images/main/cooperation-mobile.png" media="(max-width: 1279px)" />
 
+                            <img src="./images/main/cooperation.png"
+                                alt="девушка с фирменной картой и пакетом Artigiani" />
+                        </picture>
+                    </div>
+
+                </div>
 
             </section>
 
         </main>
 
         <footer class="footer">
-            <div class="footer__logo">
-                <img src="./images/logo.svg" alt="логотип сайта">
-            </div>
 
+            <a class="footer__logo" href="#top">
+                <img src="./images/logo.svg" alt="логотип сайта">
+            </a>
 
             <ul class="footer__list">
 
                 <li class="footer__item">
-                    <a href="" class="footer__link">
+                    <a href="#list-one" class="footer__link">
                         интернет-магазин
                     </a>
                 </li>
                 <li class="footer__item">
-                    <a href="" class="footer__link">
+                    <a href="#list-two" class="footer__link">
                         подарочные сертификаты
                     </a>
                 </li>
                 <li class="footer__item">
-                    <a href="" class="footer__link">
+                    <a href="#list-three" class="footer__link">
                         индивидуальный пошив
                     </a>
                 </li>
 
             </ul>
             <div class="footer__communication">
-                <div class="footer__location">
+                <div class="footer__location" id="contacts">
 
                     <div class="footer__location-img">
                         <img src="./images/map-pin.svg" alt="иконка местонахождения" class="footer__location-icon">
@@ -781,17 +901,31 @@
                         </br>
                         Большой проспект Петроградской стороны, 13
 
-                        <a href="">
+                        <button class="map">
                             смотреть на карте
-                        </a>
+                        </button>
                     </p>
                 </div>
 
                 <div class="footer__contacts">
 
-                    <img src="./images/facebook.svg" alt="иконка соц.сети facebook" class="footer__contacts-link">
-                    <img src="./images/instagram.svg" alt="иконка соц.сети instagram" class="footer__contacts-link">
-                    <img src="./images/telegram.svg" alt="иконка соц.сети telegram" class="footer__contacts-link">
+                    <a href='https://facebook.com' target="_blank">
+                        <svg class="footer__contacts-link">
+                            <use href="./images/sprite.svg#facebook"></use>
+                        </svg>
+                    </a>
+
+                    <a href='https://instagram.com' target="_blank">
+                        <svg class="footer__contacts-link">
+                            <use href="./images/sprite.svg#instagram"></use>
+                        </svg>
+                    </a>
+
+                    <a href='https://t.me/telegram' target="_blank">
+                        <svg class="footer__contacts-link">
+                            <use href="./images/sprite.svg#telegram"></use>
+                        </svg>
+                    </a>
 
                     <p class="footer__contacts-number">
                         8 (812) 931-31-13
@@ -808,9 +942,19 @@
             </div>
 
         </footer>
+        
     </div>
 
+    <dialog class="modal">
+        <script type="text/javascript" charset="utf-8" async
+            src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A06f597667fdee0f1501251e4cb41b553c944f0131aced55eeb840c3bbbf7ff41&amp;width=100%&amp;height=600&amp;lang=ru_RU&amp;scroll=true">
+        </script>
+    </dialog>
+
+    <div class="background"></div>
+
     <script src="./js/sliders.js"></script>
+    <script src="./js/script.js"></script>
 
 </body>
 

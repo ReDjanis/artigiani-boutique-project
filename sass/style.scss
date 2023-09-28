@@ -2,8 +2,70 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap');
 @import 'fonts.scss';
 
-// Общие стили
+@mixin fontz ($fw, $fs, $lh) {
+    font-weight: $fw;
+    font-size: $fs;
+    line-height: $lh;
+}
 
+@function strip-unit($number) {
+    @if type-of($number)=='number'and not unitless($number) {
+        @return $number / ($number * 0 + 1);
+    }
+
+    @return $number;
+}
+
+@function calcFluidFontSize($f-min, $f-max, $w-min, $w-max, $units: px) {
+    $f-min: strip-unit($f-min);
+    $f-max: strip-unit($f-max);
+    $w-min: strip-unit($w-min);
+    $w-max: strip-unit($w-max);
+
+    $k: ($f-max - $f-min)/($w-max - $w-min);
+    $b: $f-min - $k * $w-min;
+
+    $b: $b + $units;
+
+    @return calc(#{$k} * 100vw + #{$b});
+}
+
+@function calcFluidLineHeight($lh-min, $lh-max, $w-min, $w-max, $units: px) {
+    $lh-min: strip-unit($lh-min);
+    $lh-max: strip-unit($lh-max);
+    $w-min: strip-unit($w-min);
+    $w-max: strip-unit($w-max);
+
+    $k: ($lh-max - $lh-min)/($w-max - $w-min);
+    $b: $lh-min - $k * $w-min;
+
+    $b: $b + $units;
+
+    @return calc(#{$k} * 100vw + #{$b});
+}
+
+@mixin fluidFont($f-min, $f-max, $lh-min, $lh-max, $w-min, $w-max, $fallback: false) {
+
+    font-size: $f-min;
+    line-height: $lh-min;
+
+    @media (min-width: $w-min) {
+        @if ($fallback) {
+            font-size: $fallback;
+        }
+
+        font-size: calcFluidFontSize($f-min, $f-max, $w-min, $w-max);
+        line-height: calcFluidLineHeight($lh-min, $lh-max, $w-min, $w-max);
+    }
+
+    @media (min-width: $w-max) {
+        font-size: $f-max;
+        line-height: $lh-max;
+    }
+
+}
+
+// Общие стили
 * {
     box-sizing: border-box;
     font-family: 'Muller';
@@ -11,43 +73,26 @@
     color: #353535;
 }
 
-@mixin fontz ($fw, $fs, $lh) {
-    font-weight: $fw;
-    font-size: $fs;
-    line-height: $lh;
-}
-
-@mixin widhts ($maxw, $mw, $w) {
-    max-width: $maxw;
-    min-width: $mw;
-    width: $w;
-}
-
 .wrapper {
     display: grid;
-    // min-height: 100%;
     margin: auto;
     grid-template: 67px 1fr auto / minmax(0, 1fr) minmax(280px, 1920px) minmax(0, 1fr);
     grid-template-areas:
         "header"
         "main"
         "footer";
-
 }
 
-.burger__nav>a,
-.header__menu,
+a:hover {
+    opacity: 0.6;
+}
 
-main,
-footer {
+.header__menu {
     border-left: 0.5px solid #D9D9D9;
     border-right: 0.5px solid #D9D9D9;
 }
 
-// 100% / minmax(280px, 424px) minmax(auto, 725px) minmax(160px, 388px) minmax(auto, 383px);
-
 // Стили для header
-
 .header {
     display: grid;
     grid-template: 67px / minmax(0, 1fr) minmax(240px, 1920px) minmax(0, 1fr);
@@ -58,18 +103,7 @@ footer {
     z-index: 50;
     background-color: #fff;
 
-    // &:before {
-    //     content: '';
-    //     position: absolute;
-    //     background-color: #973636;
-    //     top: 0;
-    //     left: 0;
-    //     width: 100%;
-    //     height: 100%;
-    // }
-
     &__body {
-        // position: relative;
         grid-area: header;
         grid-column: 2/3;
         grid-row: 1/2;
@@ -99,82 +133,166 @@ footer {
         display: none;
     }
 
-    // Бургер ----------------------------------------
+    // Бургер
     .burger {
         position: relative;
         width: 100%;
+
+        &__label {
+            display: block;
+            position: absolute;
+            top: 13px;
+            right: 24px;
+            cursor: pointer;
+            z-index: 2;
+            width: 34px;
+            height: 34px;
+        }
+
+        &__line {
+            position: absolute;
+            width: 34px;
+            height: 2.5px;
+            top: 19.05px;
+            right: 24px;
+            background-color: #BB3024;
+            border-radius: 2px;
+            transition: 0.5s all;
+        }
+
+        &__line_position-2,
+        &__line_position-3 {
+            top: 28.75px;
+        }
+
+        &__line_position-4 {
+            width: 17px;
+            top: 38.45px;
+            right: 41px;
+        }
+
+        &-nav {
+            display: grid;
+            grid-template-columns: minmax(240px, 1280px);
+            position: fixed;
+            width: 100%;
+            top: -634px;
+            left: 0;
+            transform: translateY(100%);
+            height: 0;
+            font-size: 0;
+            overflow: hidden;
+            transition: 0.5s all;
+            background-color: #fff;
+            z-index: 6;
+
+            .header__link {
+                display: block;
+                width: 100%;
+                padding-top: 58px;
+                text-decoration: none;
+                padding-left: 24px;
+                font-weight: 400;
+                @include fluidFont(12px, 16px, 12px, 16px, 450px, 1280px, 12px);
+                text-transform: uppercase;
+
+            }
+
+            a:nth-last-child(2) {
+                padding-bottom: 68px;
+                border-bottom: 0.5px solid #D9D9D9;
+            }
+
+            &__info {
+                display: flex;
+                justify-content: space-between;
+                column-gap: 24px;
+                padding: 30px 24px 60px 24px;
+                border-bottom: 0.5px solid #D9D9D9;
+            }
+
+            &__location {
+                min-width: 178px;
+                width: 100%;
+
+                &-img {
+                    width: 34px;
+                    height: 34px;
+                }
+
+                &-text {
+                    @include fontz(400, 13px, 18.2px);
+                    padding-right: 10px;
+
+                    button {
+                        color: #BB3024;
+                        @include fontz(300, 11px, 15.4px);
+                        border-bottom: 1px solid #BB3024;
+                        background: none;
+                        padding: 10px 0px 0px 0px;
+                        cursor: pointer;
+
+                        &:hover {
+                            @include fontz(400, 13px, 18.2px);
+                        }
+                    }
+                }
+            }
+
+            &__contacts {
+                max-width: 178px;
+                width: 100%;
+
+                &-link {
+                    cursor: pointer;
+                    width: 32px;
+                    height: 32px;
+                    margin-right: 13px;
+                    fill: #BB3024;
+                }
+
+                a {
+                    text-decoration: none;
+                    opacity: 1;
+                }
+
+                a:nth-child(1) {
+                    svg:hover {
+                        fill: #3b5998;
+                    }
+                }
+
+                a:nth-child(2) {
+                    svg:hover {
+                        fill: #E4405F;
+                    }
+                }
+
+                a:nth-child(3) {
+                    svg:hover {
+                        fill: #08c;
+                    }
+                }
+
+                p:nth-child(4) {
+                    @include fontz(400, 16px, 16px);
+                    margin: 14px 0px 7px 0px;
+                }
+
+                p:nth-child(5) {
+                    @include fontz(300, 12px, 12px);
+                }
+            }
+        }
+
     }
 
     #check-menu {
         display: none;
     }
 
-    .burger__label {
-        display: block;
-        position: absolute;
-        top: 13px;
-        right: 24px;
-        cursor: pointer;
-        z-index: 2;
-        width: 34px;
-        height: 34px;
-    }
-
-    .burger__line {
-        position: absolute;
-        width: 34px;
-        height: 2.5px;
-        top: 19.05px;
-        right: 24px;
-        background-color: #BB3024;
-        border-radius: 2px;
-        transition: 0.5s all;
-    }
-
-    .burger__line_position-2,
-    .burger__line_position-3 {
-        top: 28.75px;
-    }
-
-    .burger__line_position-4 {
-        width: 17px;
-        top: 38.45px;
-        right: 41px;
-    }
-
-    .burger__nav {
-        display: grid;
-        grid-template-columns: minmax(20px, 1fr) minmax(240px, 1280px) minmax(20px, 1fr);
-        position: fixed;
-        width: 100%;
-        top: -282px;
-        left: 0;
-        transform: translateY(100%);
-        max-height: 0;
-        font-size: 0;
-        overflow: hidden;
-        transition: 0.5s all;
-        background-color: #fff;
-
-        a {
-            grid-column: 2/3;
-            display: block;
-            width: 100%;
-            padding-top: 58px;
-            text-decoration: none;
-            padding-left: 24px;
-            @include fontz (400, 12px, 12px);
-            text-transform: uppercase;
-        }
-
-        a:nth-last-child(1) {
-            padding-bottom: 68px;
-            border-bottom: 0.5px solid #D9D9D9;
-        }
-    }
-
-    #check-menu:checked~.burger__nav {
-        max-height: 500px;
+    #check-menu:checked~.burger-nav {
+        height: 700px;
     }
 
     #check-menu:checked~.burger__line_position-1 {
@@ -194,25 +312,29 @@ footer {
     }
 }
 
-// ---------------------------------------------------------------------------------------
 // --------------------------------------------------------------------------------------
-// Стили для основного контента - распределение секций по грид сетке
+// --------------------------------------------------------------------------------------
+// Стили для main контента - распределение секций по грид сетке
 .content {
     grid-area: main;
     grid-column: 2/3;
     display: grid;
-    grid-template-columns: 1fr minmax(280px, 1530px) 1fr;
+    grid-template-columns: minmax(20px, 1fr) minmax(280px, 1530px) minmax(20px, 1fr);
 
     &__present {
-        grid-column: 2/4;
+        grid-column: 1/4;
     }
 
-    &__catalog-links {
-        grid-column: 2;
+    &__catalog {
+        grid-column: 1/4;
+    }
+
+    &__catalog-brands {
+        grid-column: 2/3;
     }
 
     &__certification {
-        grid-column: 1/4;
+        grid-column: 2;
     }
 
     &__collection {
@@ -233,95 +355,16 @@ footer {
 
     &__cooperation {
         grid-column: 1/4;
+        overflow: hidden;
     }
 }
 
-
-// Стили для секции - презентация бутика
-
-.present {
-    display: grid;
-
-    // grid-template: minmax(auto, 502px) minmax(auto, 212px) minmax(auto, 196px) / 1fr minmax(auto, 520px) repeat(2, minmax(auto, 335px)) minmax(auto, 340px) 1fr;
-    // grid-template: minmax(auto, 502px) minmax(auto, 212px) minmax(auto, 196px) / repeat(auto-fill, 1fr minmax(auto, 520px) minmax(auto, 335px) minmax(auto, 335px) minmax(auto, 340px) 1fr);
-    grid-template-rows: repeat(auto-fit, 502px 212px 196px);
-    grid-template-columns: repeat(auto-fill, minmax(auto, 520px) minmax(auto, 335px) minmax(auto, 335px) minmax(auto, 340px));
-
-    &__info {
-        grid-area: 1/1/3/2;
-
-        h1 {
-            @include fontz(250, 55px, 140%);
-            text-transform: uppercase;
-            margin-top: 183px;
-            margin-bottom: 15px;
-        }
-
-        h3 {
-            @include fontz(300, 20px, 140%);
-            color: #BB3024;
-            margin-bottom: 41px;
-        }
-
-        &-pass {
-            @include fontz(500, 14px, 140%);
-
-            p {
-                max-width: 160px;
-                width: 100%;
-            }
-
-        }
-    }
-
-    &__image-one {
-        grid-area: 1/2/3/6;
-    }
-
-    &__image-map {
-        grid-area: 3/1;
-    }
-
-    &__image-two,
-    &__image-three,
-    &__image-four {
-        display: grid;
-        align-items: end;
-        background-color: #fff;
-        padding: 35px 30px 0 0;
-    }
-
-    &__image-two {
-        grid-area: 2/2/4/3;
-    }
-
-    &__image-three {
-        grid-area: 2/3/4/4;
-    }
-
-    // Бордер не на всю ширину/длину
-    &__image-four {
-        grid-area: 2/4/4/5;
-        position: relative;
-
-        &::after {
-            content: "";
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            height: 373px;
-            border-right: 0.5px solid #D9D9D9;
-        }
-    }
-}
-
-// Кнопка перехода на другие страницы (класс используется несколько раз на странице)
-
+// Кнопка перехода на другие страницы
 .pass {
     width: 398px;
     height: 124px;
     background: #FBFBFB;
-    border: 0.7px solid #D9D9D9;
+    border: 0.7px solid rgba(217, 217, 217, 1);
     border-radius: 87px;
     text-transform: uppercase;
     display: flex;
@@ -329,6 +372,16 @@ footer {
     padding-left: 46px;
     padding-right: 33px;
     justify-content: space-between;
+    cursor: pointer;
+
+    &:hover {
+        background: #BB3024;
+        border: 0;
+
+        P {
+            color: #fff;
+        }
+    }
 
     button {
         width: 76px;
@@ -359,20 +412,114 @@ footer {
     }
 }
 
-// Стили для секции - каталог - мужское/женское
+// Стили для секции - презентация бутика
+.present {
+    margin: 20px 0px 0px 0px;
 
-.catalog-links {
+    &__slider {
+        max-width: 508px;
+        width: 100%;
+        margin: auto;
+    }
+
+    &__image-one {
+        max-width: 420px;
+        width: 100%;
+        height: auto;
+    }
+
+    &__image-two,
+    &__image-three,
+    &__image-four {
+        max-width: 205px;
+        width: 100%;
+        height: auto;
+    }
+
+    &__info {
+        max-width: 508px;
+        width: 100%;
+        margin: auto;
+
+        h1 {
+            font-weight: 250;
+            @include fluidFont(36px, 55px, 43.2px, 77px, 1085px, 1920px, 36px);
+            text-transform: uppercase;
+            padding: 25px 10px 17px 20px;
+        }
+
+        h3 {
+            font-weight: 400;
+            @include fluidFont(20px, 20px, 24px, 28px, 428px, 1085px, 20px);
+            color: #BB3024;
+            padding: 0px 10px 29px 20px;
+        }
+
+        &-pass {
+            display: none;
+        }
+    }
+
+    &__location {
+        display: flex;
+        text-decoration: none;
+        column-gap: 24px;
+        align-items: center;
+        padding: 0px 10px 25px 20px;
+
+        p {
+            @include fontz(700, 16px, 22.4px);
+        }
+    }
+
+    &__map {
+        margin: auto;
+        max-width: 508px;
+        width: 100%;
+        max-height: 196px;
+        height: 100%;
+        overflow: hidden;
+
+        &:hover {
+            cursor: grab;
+        }
+
+        a {
+            display: block;
+        }
+    }
+
+    &__dot:last-child {
+        display: none;
+    }
+
+    .slider {
+        &__line {
+            column-gap: 18px;
+            max-height: 248px;
+            height: auto;
+            align-items: center;
+        }
+
+        &__wrapper {
+            padding: 22px 0px 0px 20px;
+        }
+    }
+}
+
+// Стили для секции - каталог
+.catalog {
 
     &__general {
-        padding: 26px 0px 35px 0px;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 0.5fr 0.5fr;
-        justify-items: end;
+        max-width: 508px;
+        width: 100%;
+        margin: auto;
+        padding-top: calc(26px + (106 - 26) * ((100vw - 420px) / (1920 - 420)));
+        padding-bottom: calc(35px + (40 - 35) * ((100vw - 420px) / (1920 - 420)));
 
         h2 {
-            @include fontz(250, 36px, 50.4px);
-            font-size: calc((100vw - 428px)/(1920 - 428)*(55 - 36) + 36px);
+            font-weight: 250;
+            @include fluidFont(36px, 55px, 50.4px, 77px, 1085px, 1920px, 36px);
             text-transform: uppercase;
         }
 
@@ -388,65 +535,74 @@ footer {
 
         &-mens {
             position: relative;
-            grid-column: 1;
-            padding-left: 20%;
-            max-height: 400px;
+            padding-left: 15%;
+            width: 100%;
 
             h2 {
                 position: absolute;
                 top: 45px;
-                left: 0px;
+                left: calc(20px + (42 - 20) * ((100vw - 450px) / (1920 - 450)));
             }
 
             a {
                 position: absolute;
                 top: 116px;
-                left: 0px;
+                left: calc(20px + (42 - 20) * ((100vw - 450px) / (1920 - 450)));
             }
 
+            &:hover {
+                opacity: 0.6;
+                cursor: pointer;
+            }
         }
 
         &-womens {
             position: relative;
-            grid-column: 1;
-            padding-right: 20%;
-            max-height: 400px;
-            justify-self: start;
+            padding-right: 15%;
+            width: 100%;
 
             h2 {
                 position: absolute;
                 top: 45px;
-                right: 0px;
+                right: calc(20px + (42 - 20) * ((100vw - 450px) / (1920 - 450)));
             }
 
             a {
                 position: absolute;
                 top: 116px;
-                right: 0px;
+                right: calc(15px + (42 - 15) * ((100vw - 450px) / (1920 - 450)));
+            }
+
+            &:hover {
+                opacity: 0.6;
+                cursor: pointer;
             }
         }
 
         .wrapper-img__general {
-            @include widhts(325px, 220px, 100%);
+            max-width: 650px;
+            width: 100%;
         }
     }
+}
 
-    // Стили для секции - каталог брендов
-
-    &__brands-wrp {
-        display: grid;
-        grid-template-columns: 5px minmax(auto, 508px) 5px;
+// Стили для секции - каталог брендов
+.catalog-brands {
+    &__wrp {
+        margin: auto;
     }
 
-    &__brands-title {
+    &__title {
         @include fontz(250, 36px, 50.4px);
         text-transform: uppercase;
         grid-column: 2/3;
         margin-bottom: 34px;
+        max-width: 508px;
+        width: 100%;
+        margin: auto;
     }
 
-    &__brands {
-        grid-column: 2/3;
+    &__items {
         display: flex;
         flex-wrap: wrap;
         row-gap: 4px;
@@ -454,7 +610,8 @@ footer {
         justify-content: center;
         overflow: hidden;
 
-        &_item-one {
+
+        &-one {
             position: relative;
             min-width: 508px;
 
@@ -472,10 +629,13 @@ footer {
                 left: 217px;
             }
 
-
+            &:hover {
+                opacity: 0.6;
+                cursor: pointer;
+            }
         }
 
-        &_item-two {
+        &-two {
             position: relative;
             min-width: 508px;
 
@@ -483,8 +643,8 @@ footer {
                 position: absolute;
                 top: 88px;
                 left: 131px;
-                padding-top: 108px / 287px * 100%;
-                max-width: 287px;
+                padding-top: 142px / 245px * 100%;
+                max-width: 245px;
             }
 
             a {
@@ -492,9 +652,14 @@ footer {
                 top: 198px;
                 left: 217px;
             }
+
+            &:hover {
+                opacity: 0.6;
+                cursor: pointer;
+            }
         }
 
-        &_item-three {
+        &-three {
             position: relative;
             min-width: 508px;
 
@@ -511,9 +676,14 @@ footer {
                 top: 198px;
                 left: 217px;
             }
+
+            &:hover {
+                opacity: 0.6;
+                cursor: pointer;
+            }
         }
 
-        &_item-four {
+        &-four {
             position: relative;
             min-width: 508px;
 
@@ -530,9 +700,14 @@ footer {
                 top: 217px;
                 left: 209px;
             }
+
+            &:hover {
+                opacity: 0.6;
+                cursor: pointer;
+            }
         }
 
-        &_item-five {
+        &-five {
             position: relative;
             min-width: 508px;
 
@@ -549,9 +724,14 @@ footer {
                 top: 217px;
                 left: 209px;
             }
+
+            &:hover {
+                opacity: 0.6;
+                cursor: pointer;
+            }
         }
 
-        &_item-six {
+        &-six {
             position: relative;
             min-width: 508px;
 
@@ -568,6 +748,11 @@ footer {
                 top: 217px;
                 left: 209px;
             }
+
+            &:hover {
+                opacity: 0.6;
+                cursor: pointer;
+            }
         }
 
         a {
@@ -579,62 +764,60 @@ footer {
             border-bottom: 1px solid #FFFFFF;
             text-align: center;
         }
+    }
 
-        &-btn {
-            grid-column: 2/3;
+    &__btn {
+        width: 100%;
+        text-align: center;
+        padding: 57px 0px 75px 0px;
+
+        button {
+            max-width: 337px;
             width: 100%;
-            text-align: center;
-            padding: 57px 0px 75px 0px;
+            height: 85px;
+            background-color: #FBFBFB;
+            border: 0.7px solid #D9D9D9;
+            border-radius: 87px;
+            @include fontz(500, 14px, 140%);
+            text-transform: uppercase;
+            cursor: pointer;
 
-            button {
-                max-width: 337px;
-                width: 100%;
-                height: 85px;
-                background-color: #FBFBFB;
-                border: 0.7px solid #D9D9D9;
-                border-radius: 87px;
-                @include fontz(500, 14px, 140%);
-                text-transform: uppercase;
-                cursor: pointer;
-                // margin: 0px 10px 0px 10px;
+            &:hover {
+                border: 0.7px solid #7e7979;
+                color: #BB3024;
             }
         }
     }
 }
 
 // Секция - сертификаты
-
 .certification {
     display: grid;
-    grid-template-columns: 5px minmax(auto, 380px) 5px;
+    grid-template-columns: minmax(auto, 380px);
     grid-template-rows: minmax(auto, 1fr) minmax(auto, 48px) minmax(auto, 76px);
     max-height: 691px;
     margin: 0 auto;
     margin-bottom: 40px;
 
     .wrapper-img__certification {
-        background: #353535;
         z-index: -1;
-        grid-area: 1/2/3/3;
-
-        img {
-            opacity: 0.6;
-        }
+        grid-area: 1/1/3/2;
     }
 
     &__info {
-        grid-area: 1/2/2/3;
+        grid-area: 1/1/2/2;
         display: flex;
         flex-direction: column;
         max-width: 348px;
         width: 100%;
         margin: 0 auto;
-        padding: 34px 0px 15px 0px;
+        padding: 34px 5px 15px 5px;
         text-align: center;
 
         p:first-child {
-            @include fontz(250, 24px, 33.6px);
-            color: #fff;
+            font-weight: 250;
+            @include fluidFont(24px, 35px, 33.6px, 49px, 428px, 1920px, 24px);
+            color: rgba(255, 255, 255, 1);
             text-transform: uppercase;
 
             span {
@@ -643,23 +826,25 @@ footer {
         }
 
         h3 {
-            @include fontz(500, 24px, 33.6px);
-            color: #fff;
+            font-weight: 500;
+            @include fluidFont(24px, 35px, 33.6px, 49px, 428px, 1920px, 24px);
+            color: rgba(255, 255, 255, 1);
             text-transform: uppercase;
             margin-bottom: 20px;
+
         }
 
         p:last-child {
             @include fontz(300, 20px, 28px);
-            color: #fff;
-            max-width: 336px;
+            color: rgba(255, 255, 255, 1);
+            width: 100%;
         }
 
     }
 
     &__pass {
         @include fontz(500, 16px, 22.4px);
-        grid-area: 2/2/4/3;
+        grid-area: 2/1/4/2;
         max-width: 380px;
         width: 100%;
 
@@ -671,48 +856,34 @@ footer {
 }
 
 // Секция - коллекция
-
 .collection {
-    margin-bottom: 116px;
+    margin: auto;
+    margin-bottom: calc(62px + (100 - 62) * ((100vw - 350px) / (1570 - 350)));
+    max-width: 420px;
+    width: 100%;
 
     &__header {
         width: 100%;
-        margin-bottom: 47px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        margin-bottom: 27px;
 
         h2 {
-            @include fontz(250, 55px, 77px);
+            font-family: 'Montserrat';
+            font-weight: 300;
+            @include fluidFont(36px, 55px, 43.2px, 77px, 1085px, 1920px, 36px);
             text-transform: uppercase;
-        }
-
-        a {
-            @include fontz(400, 14px, 19.6px);
-            text-transform: uppercase;
-            color: #BB3024;
-            width: 168px;
-            text-decoration: none;
-            border-bottom: 1px solid #BB3024;
             text-align: center;
-            height: 27px;
         }
-
-    }
-
-    &__items {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 420px));
-        column-gap: 135px;
     }
 
     &__item {
-        display: grid;
-        grid-template: auto 1fr / 1fr;
-
+        max-width: 420px;
+        width: 100%;
+        height: auto;
 
         &-name {
+            font-family: 'Montserrat';
             @include fontz(500, 16px, 22.4px);
+            display: block;
             margin-top: 50px;
             text-decoration: none;
             text-align: center;
@@ -723,69 +894,48 @@ footer {
             }
         }
     }
+
+    &__link {
+
+        a {
+            display: block;
+            font-family: 'Montserrat';
+            font-weight: 500;
+            @include fluidFont(16px, 14px, 19.2px, 19.6px, 428px, 1920px, 14px);
+            text-transform: uppercase;
+            color: #BB3024;
+            width: 230px;
+            text-decoration: none;
+            text-align: center;
+            border-bottom: 1px solid #BB3024;
+            padding: 51px 0px 14px 0px;
+            margin: auto;
+        }
+    }
+
+    .slider__wrapper {
+        padding-top: 46px;
+        justify-content: center;
+    }
 }
 
 // Секция - наши покупатели
-/*
 .shoppers {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 359px));
-    column-gap: 30px;
-    margin-bottom: 81px;
-
-    &__item {
-        position: relative;
-        display: flex;
-        align-items: center;
-
-        h3 {
-            @include fontz(250, 55px, 77px);
-            text-transform: uppercase;
-        }
-
-    }
-
-    &__info {
-        @include fontz(500, 16px, 22.4px);
-        max-width: 260px;
-        width: 100%;
-        height: 144px;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        background-color: #fff;
-        border-radius: 0px 50px 0px 0px;
-        padding: 20px 20px 28px 26px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-
-        h4 {
-            @include fontz(700, 20px, 28px);
-        }
-
-
-    }
-}*/
-.shoppers {
-    display: grid;
-    grid-template-columns: minmax(20px, 1fr) minmax(auto, 420px) minmax(20px, 1fr);
+    max-width: 420px;
+    width: 100%;
+    margin: auto;
     margin-bottom: 62px;
 
     &__title {
-        grid-column: 2;
         margin-bottom: 40px;
 
         h3 {
             font-family: 'Montserrat';
-            @include fontz(300, 36px, 43.2px);
+            font-weight: 300;
+            @include fluidFont(36px, 55px, 43.2px, 77px, 1085px, 1920px, 36px);
             text-transform: uppercase;
             text-align: center;
         }
-    }
-
-    &__slider {
-        grid-column: 2;
     }
 
     &__item {
@@ -814,21 +964,26 @@ footer {
             @include fontz(700, 20px, 28px);
         }
     }
+
+    .slider__wrapper {
+        padding-top: 46px;
+        justify-content: center;
+    }
 }
 
 
 // Секция - парфюм
-
 .perfume {
     display: flex;
     width: 100%;
     flex-direction: column;
+    align-items: center;
     margin-bottom: 50px;
-
 
     &__item {
         flex: 0 1 50%;
         position: relative;
+        max-width: 601px;
         width: 100%;
 
         button {
@@ -850,6 +1005,11 @@ footer {
         right: 12%;
         color: #fff;
         border: 0.7px solid #fff;
+
+        &:hover {
+            color: #333333;
+            border: 0.7px solid #333333;
+        }
     }
 
     &__pass-topsmell {
@@ -858,6 +1018,11 @@ footer {
         left: 11%;
         color: #333333;
         border: 0.7px solid #333333;
+
+        &:hover {
+            color: #fff;
+            border: 0.7px solid #fff;
+        }
     }
 
     &__info-left,
@@ -872,8 +1037,8 @@ footer {
 
         h4 {
             font-family: 'Montserrat';
-            @include fontz(300, 24px, 120%);
-            font-size: calc((100vw - 420px)/(1920 - 420)*(35 - 24) + 24px);
+            font-weight: 300;
+            @include fluidFont(24px, 35px, 28.8px, 42px, 428px, 1920px, 24px);
             color: #fff;
         }
 
@@ -911,7 +1076,6 @@ footer {
 }
 
 // Секция - пошив
-
 .sewing {
     display: flex;
     flex-direction: column;
@@ -922,11 +1086,12 @@ footer {
     margin-bottom: 41px;
 
     &__info {
-        padding: 19px 5px 0px 5px;
+        padding-top: 19px;
     }
 
     &__title {
-        @include fontz(250, 36px, 50.4px);
+        font-weight: 250;
+        @include fluidFont(36px, 55px, 50.4px, 77px, 428px, 1920px, 36px);
         text-transform: uppercase;
         width: 100%;
         margin-bottom: 25px;
@@ -937,20 +1102,20 @@ footer {
     }
 
     &__text {
-        @include fontz(400, 15px, 21px);
+        font-weight: 400;
+        @include fluidFont(15px, 20px, 21px, 28px, 428px, 1920px, 15px);
         padding-bottom: 15px;
         min-width: 270px;
         width: 100%;
 
         &_bold {
-            @include fontz(500, 15px, 21px);
+            font-weight: 500;
         }
     }
 
     .wrapper-img__sewing {
         max-width: 601px;
         width: 100%;
-        margin: 0 auto;
     }
 
     &__benefits {
@@ -958,7 +1123,6 @@ footer {
         flex-direction: column;
         @include fontz(300, 14px, 19.6px);
         text-transform: uppercase;
-        padding: 0px 5px;
     }
 
     &__list {
@@ -983,11 +1147,6 @@ footer {
             display: flex;
             justify-content: flex-end;
         }
-
-        p {
-            margin-right: 10px;
-        }
-
     }
 
     &__item:nth-child(1) {
@@ -1020,12 +1179,10 @@ footer {
     &__icon {
         max-height: 85px;
         height: 100%;
-        margin-left: 10px;
 
         &_small {
             max-height: 75px;
             height: 100%;
-            margin-left: 10px;
         }
     }
 
@@ -1035,27 +1192,27 @@ footer {
         width: 100%;
         margin: 0 auto;
         font-weight: 500;
+        @include fluidFont(16px, 14px, 22.4px, 19.6px, 428px, 1920px, 14px);
     }
 }
 
 // Секция - сотрудничество
-
 .cooperation {
-    background-color: #FBFBFB;
     display: flex;
     flex-direction: column;
     align-items: center;
     border-top: 0.7px solid #D9D9D9;
-    padding: 0px 5px;
+    background-color: #FBFBFB;
 
     &__info {
-        padding: 55px 19px 43px 19px;
+        padding: 55px 20px 43px 20px;
         max-width: 601px;
         width: 100%;
     }
 
     &__title {
-        @include fontz(250, 24px, 33.6px);
+        font-weight: 250;
+        @include fluidFont(24px, 35px, 33.6px, 49px, 428px, 1920px, 24px);
         text-transform: uppercase;
         padding-bottom: 23px;
         text-align: center;
@@ -1106,20 +1263,20 @@ footer {
         @include fontz(500, 16px, 22.4px);
         max-width: 380px;
         min-width: 270px;
-        width: 100%;
-
+        width: 90%;
     }
 
     &__img {
-        margin-top: 20px;
-        max-width: 601px;
+        margin: -62px 0px 0px 0px;
         width: 100%;
+        max-height: 551px;
+        display: flex;
+        justify-content: center;
     }
 
 }
 
 // Стили для адаптивных изображений
-
 .wrapper-img {
     position: relative;
     overflow: hidden;
@@ -1136,21 +1293,15 @@ footer {
     }
 
     &__present-one {
-        padding-top: 714px / 1205px * 100%;
-        max-width: 1205px;
-        z-index: -1;
-    }
-
-    &__present-map {
-        padding-top: 196px / 520px * 100%;
-        max-width: 520px;
+        padding-top: 248px / 420px * 100%;
+        max-width: 420px;
     }
 
     &__present-two,
     &__present-three,
     &__present-four {
-        padding-top: 373px / 305px * 100%;
-        max-width: 305px;
+        padding-top: 248px / 205px * 100%;
+        max-width: 205px;
     }
 
     &__general {
@@ -1172,6 +1323,7 @@ footer {
     &__collection {
         padding-top: 534px / 420px * 100%;
         max-width: 420px;
+        display: block;
     }
 
     &__shoppers {
@@ -1190,19 +1342,19 @@ footer {
     }
 
     &__cooperation {
-        padding-top: 637px / 865px * 100%;
-        // max-width: 865px;
+        padding-top: 481px / 434px * 100%;
+        max-width: 434px;
     }
 }
 
 // Футер
-
 .footer {
     border-top: 0.5px solid #D9D9D9;
     grid-area: footer;
     grid-column: 2/3;
 
     &__logo {
+        display: block;
         padding: 32px 0px 18px 0px;
         text-align: center;
     }
@@ -1225,10 +1377,19 @@ footer {
             width: 100%;
             @include fontz(400, 14px, 19.6px);
 
-            a {
+            button {
                 display: block;
                 color: #BB3024;
-                @include fontz(300, 11px, 35px);
+                @include fontz(300, 11px, 15.4px);
+                border-bottom: 1px solid #BB3024;
+                background: none;
+                padding: 10px 0px 0px 0px;
+                cursor: pointer;
+                margin: 0 auto;
+
+                &:hover {
+                    @include fontz(300, 15px, 15.4px);
+                }
             }
         }
     }
@@ -1238,7 +1399,33 @@ footer {
 
         &-link {
             cursor: pointer;
+            width: 32px;
+            height: 32px;
             margin-right: 13px;
+            fill: #BB3024;
+        }
+
+        a {
+            text-decoration: none;
+            opacity: 1;
+        }
+
+        a:nth-child(1) {
+            svg:hover {
+                fill: #3b5998;
+            }
+        }
+
+        a:nth-child(2) {
+            svg:hover {
+                fill: #E4405F;
+            }
+        }
+
+        a:nth-child(3) {
+            svg:hover {
+                fill: #08c;
+            }
         }
 
         &-number {
@@ -1257,85 +1444,125 @@ footer {
     }
 }
 
+// Стили для слайдера
+.slider {
+    position: relative;
+    overflow: hidden;
+
+    &__touch {
+        width: 100%;
+        cursor: grab;
+
+        &:active {
+            cursor: ew-resize;
+        }
+    }
+
+    &__line {
+        position: relative;
+        display: flex;
+        transition: all ease 1s;
+        left: 0;
+    }
+
+    &__btn-prew,
+    &__btn-next {
+        position: absolute;
+        width: 30%;
+        height: 100%;
+        background-color: transparent;
+        cursor: pointer;
+    }
+
+    &__btn-prew {
+        top: 0;
+        left: 0;
+    }
+
+    &__btn-next {
+        top: 0;
+        right: 0;
+    }
+
+    &__wrapper {
+        display: flex;
+        column-gap: 15px;
+    }
+
+    &__dot {
+        width: 10px;
+        height: 10px;
+        background-color: #D9D9D9;
+        border-radius: 50%;
+    }
+
+    &__dot:hover {
+        background-color: #BB3024;
+        cursor: pointer;
+    }
+
+    .active__dot {
+        background-color: #BB3024;
+    }
+
+}
+
+.modal {
+    max-width: 1000px;
+    width: 100%;
+    height: 600px;
+    padding: 0;
+    border: 3px solid #292929;
+    border-radius: 50px;
+    overflow: hidden;
+
+    &::backdrop {
+        background-color: #292929;
+        opacity: 0.6;
+        cursor: pointer;
+    }
+}
+
+.scroll-lock {
+    overflow: hidden;
+}
+
+.background {
+    display: none;
+    background-color: #292929;
+    opacity: 0.6;
+    cursor: pointer;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5;
+}
+
 // ------------------------------------------------
-// ВСЕ СТИЛИ ДЛЯ КОМП. ВЕРСИИ .:
+// МЕДИА-ЗАПРОСЫ
 
-
-
-
-// Верный медиа-запрос
-@media screen and (min-width: 420px) {
-    .catalog-links {
-
-        &__general {
-            &-mens {
-                padding-left: 15%;
-            }
-
-            &-womens {
-                padding-right: 15%;
-            }
-
-            .wrapper-img__general {
-                @include widhts(413px, 325px, 100%);
-            }
-        }
-
-        &__brands-wrp {
-            grid-template-columns: 24px minmax(320px, 508px) 24px;
-        }
-
-    }
-
-}
-
-// Верный МЗ на фон из сертификации
-@media screen and (min-width: 430px) {
-    .certification {
-        grid-template-columns: 24px minmax(auto, 380px) 24px;
-    }
-
-    .sewing {
-        &__info {
-            padding: 19px 24px 0px 24px;
+@media screen and (max-width: 415px) {
+    .burger {
+        &-nav__info {
+            flex-direction: column;
+            row-gap: 24px;
         }
     }
 }
 
-// Верный МЗ
-@media screen and (min-width: 555px) {
-
-    .catalog-links {
-
-        &__general {
-            grid-template-columns: 1fr 508px 1fr;
-
-            &-mens,
-            &-womens {
-                grid-column: 2/3;
-            }
-        }
-
-        &__brands-wrp {
-            grid-template-columns: 1fr;
-            justify-items: center;
-        }
-    }
-}
-
-// Верный МЗ
-@media screen and (min-width: 601px) {
-    .perfume {
-        align-items: center;
-
-        &__item {
-            max-width: 601px;
-        }
-    }
-}
-
-// Верный медиа-запрос
 @media screen and (min-width: 830px) {
+
+    .content {
+        &__catalog-brands {
+            grid-column: 1/4;
+        }
+
+        &__certification {
+            grid-column: 1/4;
+        }
+    }
 
     .certification {
         max-height: 478px;
@@ -1345,7 +1572,6 @@ footer {
 
         .wrapper-img__certification {
 
-            grid-area: 1/1/3/2;
             padding-top: 416px / 1920px * 100%;
             max-width: 1920px;
             height: 416px;
@@ -1356,23 +1582,12 @@ footer {
         }
 
         &__info {
-            grid-area: 1/1/2/2;
             margin-left: 51%;
             text-align: left;
-
-            p:first-child {
-                font-size: calc((100vw - 830px)/(1920 - 830)*(35 - 24) + 24px);
-            }
-
-            h3 {
-                font-size: calc((100vw - 830px)/(1920 - 830)*(35 - 24) + 24px);
-                // line-height: 49px;
-            }
-
+            max-width: calc(348px + (750 - 348) * ((100vw - 830px) / (1920 - 830)));
         }
 
         &__pass {
-            grid-area: 2/1/4/2;
             margin-left: 51%;
         }
     }
@@ -1406,6 +1621,10 @@ footer {
                 br {
                     display: none;
                 }
+
+                button {
+                    margin: 0;
+                }
             }
         }
 
@@ -1415,9 +1634,13 @@ footer {
     }
 }
 
-// Верный медиа-запрос
-
 @media screen and (min-width: 1024px) {
+
+    main {
+        border-left: 0.5px solid #D9D9D9;
+        border-right: 0.5px solid #D9D9D9;
+    }
+
     .wrapper {
         grid-template-columns: minmax(20px, 1fr) minmax(240px, 1920px) minmax(20px, 1fr);
     }
@@ -1429,17 +1652,50 @@ footer {
             border-left: 0.5px solid #D9D9D9;
             border-right: 0.5px solid #D9D9D9;
         }
+
+        .burger {
+            &-nav {
+                grid-template-columns: minmax(20px, 1fr) minmax(240px, 1280px) minmax(20px, 1fr);
+
+                a,
+                .burger-nav__info {
+                    grid-column: 2/3;
+                    border-left: 0.5px solid #D9D9D9;
+                    border-right: 0.5px solid #D9D9D9;
+                }
+            }
+        }
     }
+
+    .footer {
+        border-left: 0.5px solid #D9D9D9;
+        border-right: 0.5px solid #D9D9D9;
+    }
+
 }
 
-// Медиа-запрос верный
+@media screen and (min-width: 1085px) {
 
-@media screen and (min-width: 1097px) {
-    .catalog-links {
+    .content {
+        &__catalog-links {
+            grid-column: 2;
+        }
+    }
+
+    .present {
+        &__slider {
+            max-width: fit-content;
+        }
+
+        &__dot:nth-child(3) {
+            display: none;
+        }
+    }
+
+    .catalog {
         &__general {
-            grid-template-columns: 24px 0.5fr 0.5fr 24px;
-            grid-template-rows: 1fr;
-            padding: 106px 0px 40px 0px;
+            max-width: 1530px;
+            display: flex;
 
             h2 {
                 top: 93px;
@@ -1450,32 +1706,40 @@ footer {
             }
 
             &-mens {
-                grid-column: 2/3;
-                max-height: 628px;
-                width: 100%;
+                padding-left: 115px;
             }
 
             &-womens {
-                grid-column: 3/4;
-                max-height: 628px;
-                width: 100%;
+                padding-right: 115px;
             }
         }
+    }
 
-        .wrapper-img__general {
-            max-width: 650px;
+    .catalog-brands {
+        &__title {
+            display: none;
+        }
+    }
 
+}
+
+@media screen and (min-width: 1155px) {
+
+    .present {
+        &__dot {
+            display: none;
         }
 
-        &__brands-title {
-            display: none;
+        .slider__touch {
+            display: flex;
+            justify-content: center;
+            cursor: auto;
         }
     }
 }
 
-// Верный медиа-запрос
-
 @media screen and (min-width: 1280px) {
+
     .wrapper {
         grid-template-rows: 103px 1fr 135px;
     }
@@ -1536,43 +1800,76 @@ footer {
         display: none;
     }
 
-    .catalog-links {
-
-        &__brands-wrp {
-            grid-template-columns: 1fr;
-        }
-    }
-
     .certification {
         &__info {
-            max-width: 550px;
-
             p:first-child {
-                line-height: 49px;
-
                 span {
-                    display: inline-block;
-                    font-size: inherit;
+                    display: inline;
                     color: inherit;
                 }
             }
+        }
+    }
 
-            h3 {
-                line-height: 49px;
+    .collection {
+        max-width: 1530px;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(auto, 765px));
+        grid-template-rows: minmax(auto, 77px) minmax(auto, 650px);
+        row-gap: 47px;
+        align-items: center;
+
+        &__header {
+            grid-area: 1/1/2/2;
+            align-self: center;
+            margin: 0;
+
+            h2 {
+                font-style: 'Muller';
+                font-weight: 250;
+                text-align: left;
             }
+        }
 
-            p:last-child {
-                max-width: 550px;
+        &__slider {
+            grid-area: 2/1/3/3;
+        }
+
+        &__link {
+            grid-area: 1/2/2/3;
+            width: 100%;
+
+            a {
+                font-weight: 400;
+                padding: 0px 0px 7px 0px;
+                width: 168px;
+                margin-right: 0;
             }
         }
     }
 
+    .slider__touch {
+        cursor: auto;
+    }
+
     .shoppers {
-        grid-template-columns: minmax(20px, 1fr) minmax(auto, 1200px) minmax(20px, 1fr);
+        max-width: 1530px;
+        width: 100%;
         margin-bottom: 81px;
+
+        &__title {
+            h3 {
+                font-style: 'Muller';
+                font-weight: 250;
+            }
+        }
 
         &__slider {
             max-height: 508px;
+            margin: auto;
+            max-width: 1140px;
+            width: 100%;
         }
 
         &__item {
@@ -1590,7 +1887,6 @@ footer {
         }
 
         &__line {
-            justify-content: center;
             max-width: 100%;
             column-gap: 30px;
         }
@@ -1617,6 +1913,10 @@ footer {
         }
     }
 
+    .content__sewing {
+        grid-column: 1/4;
+    }
+
     .sewing {
         display: grid;
         grid-template-rows: minmax(auto, 27px) minmax(auto, 640px) minmax(auto, 96px) minmax(auto, 96px);
@@ -1635,21 +1935,12 @@ footer {
         }
 
         &__title {
-            font-size: calc((100vw - 1280px)/(1920 - 1280)*(55 - 36) + 36px);
-            line-height: 77px;
             max-width: 450px;
             margin-bottom: 15px;
         }
 
         &__text {
-            font-size: calc((100vw - 1280px)/(1920 - 1280)*(20 - 15) + 15px);
-            line-height: 28px;
             max-width: 350px;
-
-            &_bold {
-                font-size: calc((100vw - 1280px)/(1920 - 1280)*(20 - 15) + 15px);
-                line-height: 28px;
-            }
         }
 
         .wrapper-img__sewing {
@@ -1714,6 +2005,22 @@ footer {
                 .btn__line {
                     background-color: #BB3024;
                 }
+
+
+            }
+
+            &:hover {
+                background-color: #fff;
+                color: #BB3024;
+                border: 2px solid #BB3024;
+
+                button {
+                    background-color: #BB3024;
+
+                    .btn__line {
+                        background-color: #fff;
+                    }
+                }
             }
         }
     }
@@ -1721,23 +2028,23 @@ footer {
     .cooperation {
         position: relative;
         height: 990px;
+        max-width: 1920px;
+        width: 100%;
         display: grid;
-        grid-template: minmax(auto, 47px) minmax(auto, 222px) minmax(auto, 443px) minmax(auto, 62px) minmax(auto, 62px) minmax(auto, 154px) / 1fr minmax(auto, 520px) minmax(50px, 523px) minmax(50px, 398px) minmax(20px, 89px) 1fr;
+        grid-template: minmax(auto, 47px) minmax(auto, 222px) minmax(auto, 443px) minmax(auto, 62px) minmax(auto, 62px) minmax(auto, 154px) / 1fr 250px minmax(auto, 523px) minmax(auto, 398px) minmax(auto, 89px) 1fr;
         border-top: 0;
         padding: 0;
+        margin: auto;
 
         &__info {
-            grid-area: 2/3/5/6;
+            grid-area: 2/3/5/7;
             border: 0.7px solid #D9D9D9;
-            border-right: 0;
             background-color: #fff;
             padding: 88px 34px 142px 50px;
             max-width: 1010px;
         }
 
         &__title {
-            font-size: calc((100vw - 1280px)/(1920 - 1280)*(35 - 24) + 24px);
-            line-height: 49px;
             text-align: start;
             padding-bottom: 17px;
         }
@@ -1755,6 +2062,7 @@ footer {
             flex-wrap: wrap;
             max-height: 320px;
             height: 100%;
+            width: 100%;
         }
 
         &__item {
@@ -1768,17 +2076,33 @@ footer {
         }
 
         &__img {
-            grid-area: 3/2/7/4;
-            align-self: end;
-            margin-top: 0;
-            max-width: 865px;
+            position: absolute;
+            max-width: 610px;
             width: 100%;
+            height: 470px;
+            bottom: 0;
+            left: 0;
+
         }
     }
+
+    .wrapper-img {
+        &__cooperation {
+            padding-top: 550px / 601px * 100%;
+            max-width: 601px;
+        }
+    }
+
 }
 
-// Верный МЗ 
 @media screen and (min-width: 1430px) {
+
+    .collection {
+        .slider__line {
+            column-gap: 135px;
+        }
+    }
+
     .sewing {
         &__title {
             max-width: 600px;
@@ -1790,43 +2114,149 @@ footer {
     }
 }
 
-// Верный МЗ 
 @media screen and (min-width: 1490px) {
+
     .sewing {
         .wrapper-img__sewing {
             max-width: 865px;
         }
     }
+
+    .cooperation {
+        grid-template-columns: 1fr 520px minmax(auto, 523px) minmax(auto, 398px) minmax(auto, 89px) 1fr;
+
+        &__img {
+            max-width: 865px;
+            max-height: 723px;
+            height: 100%;
+            left: calc(0px + (195 - 0) * ((100vw - 1490px) / (1920 - 1490)));
+            bottom: 0;
+        }
+
+        .wrapper-img__cooperation {
+            padding-top: 723px / 865px * 100%;
+            max-width: 865px;
+        }
+    }
 }
 
-// Верный МЗ
 @media screen and (min-width: 1570px) {
+
+    .present {
+        margin: 0;
+        grid-column: 2/4;
+        display: grid;
+        grid-template-columns: minmax(auto, 520px) minmax(auto, 1205px);
+        grid-template-rows: minmax(auto, 714px) minmax(auto, 196px);
+
+        &__slider {
+            grid-area: 1/2/3/3;
+        }
+
+        &__info {
+            grid-area: 1/1/2/2;
+            padding-left: calc(10px + (0 - 10) * ((100vw - 1570px) / (1630 - 1570)));
+
+            h1,
+            h3 {
+                padding-left: 0;
+            }
+
+            &-pass {
+                display: flex;
+                @include fontz(500, 14px, 19.6px);
+
+                p {
+                    max-width: 165px;
+                    width: 100%;
+                }
+            }
+        }
+
+        &__map {
+            grid-area: 2/1/3/2;
+            max-width: 520px;
+        }
+
+        &__location {
+            display: none;
+        }
+
+        .slider {
+            &__line {
+                display: grid;
+                grid-template-columns: 335px 335px 340px minmax(auto, 195px);
+                grid-template-rows: 502px 212px 196px;
+                column-gap: 0px;
+                max-height: 910px;
+            }
+
+            &__touch {
+                max-width: 1205px;
+                width: 100%;
+                max-height: 910px;
+                height: 100%;
+                display: flex;
+                justify-content: start;
+            }
+        }
+
+        &__image-one {
+            grid-area: 1/1/3/5;
+            max-width: 1205px;
+        }
+
+        &__image-two,
+        &__image-three,
+        &__image-four {
+            max-width: 335px;
+            display: grid;
+            align-items: end;
+            background-color: #fff;
+            padding: 35px 30px 0 0;
+        }
+
+        &__image-two {
+            grid-area: 2/1/4/2;
+        }
+
+        &__image-three {
+            grid-area: 2/2/4/3;
+        }
+
+        &__image-four {
+            grid-area: 2/3/4/4;
+            position: relative;
+            max-width: 340px;
+            padding: 35px 35px 0 0;
+        }
+    }
+
+    .collection {
+        margin-bottom: 116px;
+    }
+
     .shoppers {
+        display: grid;
         grid-template-columns: minmax(auto, 360px) minmax(auto, 1140px);
         column-gap: 30px;
 
         &__title {
             grid-column: 1;
             width: 360px;
-            display: flex;
-            align-items: center;
-            margin-left: 20px;
+            align-self: center;
 
             h3 {
-                font-family: 'Muller';
-                @include fontz(250, 55px, 77px);
                 text-align: left;
             }
         }
 
         &__slider {
             grid-column: 2;
-            margin-right: 20px;
         }
     }
 
     .sewing {
-
         &__info {
             padding: 93px 0px 0px 100px;
             border: 0.7px solid #D9D9D9;
@@ -1837,45 +2267,26 @@ footer {
             border-right: 0;
         }
     }
-}
 
-// Медиа-запрос для general
-@media screen and (min-width: 1610px) {
-    .catalog-links {
+    .wrapper-img {
+        &__present-one {
+            padding-top: 715px / 1205px * 100%;
+            max-width: 1205px;
+            z-index: -1;
+        }
 
-        &__general {
-            grid-template-columns: 42px 0.5fr 0.5fr 48px;
-            border-right: 0.5px solid #D9D9D9;
-            border-left: 0.5px solid #D9D9D9;
-
-            h2 {
-                font-size: 55px;
-            }
-
-            &-mens {
-                grid-column: 2/3;
-            }
-
-            &-womens {
-                grid-column: 3/4;
-            }
+        &__present-two,
+        &__present-three,
+        &__present-four {
+            padding-top: 373px / 305px * 100%;
+            max-width: 305px;
         }
     }
-
-    .cooperation {
-        &__info {
-            border-right: 0.7px solid #D9D9D9;
-            ;
-        }
-    }
-
-
 }
 
-// Верный медиа-запрос
 @media screen and (min-width: 1630px) {
-    .header {
 
+    .header {
         &__body {
             grid-template-columns: 424px 725px minmax(auto, 388px) minmax(auto, 383px);
         }
@@ -1903,7 +2314,7 @@ footer {
             column-gap: 27px;
             max-width: 344px;
             justify-self: end;
-            padding-top: 20px;
+            padding-top: calc(8px + (20 - 8) * ((100vw - 1630px) / (1920 - 1630)));
 
             &-img {
                 padding-top: 19px;
@@ -1915,9 +2326,17 @@ footer {
                 @include fontz(400, 14px, 19.6px);
                 padding-right: 10px;
 
-                a {
+                button {
                     color: #BB3024;
-                    @include fontz(300, 11px, 35px);
+                    @include fontz(300, 11px, 15.4px);
+                    border-bottom: 1px solid #BB3024;
+                    background: none;
+                    padding: 10px 0px 0px 0px;
+                    cursor: pointer;
+
+                    &:hover {
+                        @include fontz(300, 15px, 15.4px);
+                    }
                 }
             }
         }
@@ -1925,7 +2344,7 @@ footer {
         &__contacts {
             display: block;
             grid-column: 4/5;
-            padding-top: 25px;
+            padding-top: calc(12px + (25 - 12) * ((100vw - 1630px) / (1920 - 1630)));
 
             p:nth-child(1) {
                 @include fontz(400, 14px, 14px);
@@ -1939,44 +2358,46 @@ footer {
 
             &-link {
                 cursor: pointer;
+                width: 32px;
+                height: 32px;
                 margin-right: 13px;
+                fill: #BB3024;
             }
 
-        }
-    }
+            a {
+                text-decoration: none;
+                opacity: 1;
+            }
 
-    .shoppers {
-        &__title {
-            margin-left: 0;
-        }
+            a:nth-child(3) {
+                svg:hover {
+                    fill: #3b5998;
+                }
+            }
 
-        &__slider {
-            margin-right: 0;
+            a:nth-child(4) {
+                svg:hover {
+                    fill: #E4405F;
+                }
+            }
+
+            a:nth-child(5) {
+                svg:hover {
+                    fill: #08c;
+                }
+            }
         }
     }
 
     .certification {
-
         &__info {
             max-width: 750px;
-
-            p:first-child {
-                font-size: 35px;
-            }
-
-            h3 {
-                font-size: 35px;
-            }
-
-            p:last-child {
-                max-width: 750px;
-            }
         }
     }
 
     .footer {
         display: grid;
-        grid-template-columns: minmax(51px, 1fr) 229px 681px 620px minmax(51px, 1fr);
+        grid-template-columns: minmax(51px, 1fr) 229px 681px minmax(525px, 620px) minmax(51px, 1fr);
 
         &__logo {
             padding: 32px 51px 0px 0px;
@@ -2008,97 +2429,48 @@ footer {
     }
 }
 
-// Верный МЗ на шрифты секции sewing
-@media screen and (min-width: 1920px) {
+@media screen and (min-width: 1635px) {
 
-    .perfume {
-
-        &__info-left,
-        &__info-right {
-            h4 {
-                font-size: 35px;
-                line-height: 42px;
+    .present {
+        // Бордер не на всю ширину/длину
+        &__image-four {
+            &::after {
+                content: "";
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                height: 373px;
+                border-right: 0.5px solid #D9D9D9;
             }
         }
     }
 
-    .sewing {
-        &__title {
-            font-size: 55px;
+    .catalog {
+        &__general {
+            border-right: 0.5px solid #D9D9D9;
+            border-left: 0.5px solid #D9D9D9;
         }
+    }
+}
 
-        &__text {
-            font-size: 20px;
+@media screen and (min-width: 1920px) {
 
-            &_bold {
-                font-size: 20px;
-            }
+    .header {
+        &__location,
+        &__contacts {
+            padding-top: 20px;
+        }
+    }
+
+    .catalog {
+        &__general {
+            padding: 106px 0px 40px 0px;
         }
     }
 
     .cooperation {
-        &__title {
-            font-size: 35px;
+        &__img {
+            left: 195px;
         }
     }
 }
-
-// Стили для слайдера
-.slider {
-    position: relative;
-    overflow: hidden;
-    cursor: grab;
-
-    &:active {
-        cursor: ew-resize;
-    }
-
-    &__line {
-        display: flex;
-        transition: all ease 1s;
-    }
-
-    &__btn-prew,
-    &__btn-next {
-        position: absolute;
-        width: 30%;
-        height: 100%;
-        background-color: transparent;
-        cursor: pointer;
-    }
-
-    &__btn-prew {
-        top: 0;
-        left: 0;
-    }
-
-    &__btn-next {
-        top: 0;
-        right: 0;
-    }
-
-    &__wrapper {
-        display: flex;
-        column-gap: 15px;
-        padding-top: 46px;
-        justify-content: center;
-    }
-
-    &__dot {
-        width: 10px;
-        height: 10px;
-        background-color: #D9D9D9;
-        border-radius: 50%;
-    }
-
-    &__dot:hover {
-        background-color: #BB3024;
-        cursor: pointer;
-    }
-
-    .active__dot {
-        background-color: #BB3024;
-    }
-
-}
-

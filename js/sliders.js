@@ -1,131 +1,267 @@
 'use strict'
 
-console.log('Hello! I came back');
-/*
+const imagesPresent = document.querySelectorAll('.present__item'),
+    sliderLinePresent = document.querySelector('#sliderLinePresent'),
+    sliderDotsPresent = document.querySelectorAll('.present__dot'),
+    imagesCollection = document.querySelectorAll('.collection__item'),
+    sliderLineCollection = document.querySelector('#sliderLineCollection'),
+    sliderDotsCollection = document.querySelectorAll('.collection__dot'),
+    imagesShoppers = document.querySelectorAll('.shoppers__item'),
+    sliderLineShoppers = document.querySelector('#sliderLineShoppers'),
+    sliderDotsShoppers = document.querySelectorAll('.shoppers__dot'),
+    sliderTouch = document.querySelectorAll('.slider__touch'),
+    subtitlePresent = document.querySelector('#subtitlePresent');
 
-// автопрокрутка
-let intervalSlide = setInterval(() => {
-    nextSlide();
-}, 5000);
-// обнуление автопрокрутки
-function restartIntervalSlide() {
+let countPresent = 0,
+    widthPresent,
+    nameSectionPresent = 'present',
+    countCollection = 0,
+    widthCollection,
+    nameSectionCollection = 'collection',
+    countShoppers = 0,
+    widthShoppers,
+    nameSectionShoppers = 'shoppers';
 
-    clearInterval(intervalSlide);
-    intervalSlide = setInterval(() => {
-        nextSlide();
-    }, 5000);
+let widthImgPresentArr = [0],
+    lineWidthPresent = 0,
+    sliderLinePresentStyle = getComputedStyle(sliderLinePresent),
+    sliderLineColumnGap = parseInt(sliderLinePresentStyle.getPropertyValue('column-gap'));
+
+widthCollection = showSlide(countCollection, nameSectionCollection, sliderLineCollection, imagesCollection);
+widthShoppers = showSlide(countShoppers, nameSectionShoppers, sliderLineShoppers, imagesShoppers);
+
+lineWidthPresent = calcLineWidthPresent();
+
+if (document.documentElement.clientWidth < 1570) {
+    sliderLinePresent.style.width = lineWidthPresent + 'px';
+} else {
+    sliderLinePresent.style.width = '';
+}
+// замена текста подзаголовка
+if (document.documentElement.clientWidth < 1550) {
+    subtitlePresent.textContent = '13 лет одеваем людей с хорошим вкусом!';
+} else {
+    subtitlePresent.textContent = 'Ведущие бренды люкс и премиум-класса';
 }
 
-document.querySelector('.slider__btn-prew').addEventListener('click', prewSlide);
-document.querySelector('.slider__btn-next').addEventListener('click', nextSlide);
+if (document.documentElement.clientWidth < 1155) {
+    widthPresent = document.querySelector('.present__slider').offsetWidth;
+} else {
+    widthPresent = lineWidthPresent;
+}
+// показать/скрыть 4 dot
+if (document.documentElement.clientWidth < 460) {
+    document.querySelector('.present__dot:last-child').style.display = 'block';
+} else {
+    document.querySelector('.present__dot:last-child').style.display = '';
+}
+// событие клика на dot present
+sliderDotsPresent.forEach((elem, index) => {
+    elem.addEventListener('click', () => {
+        countPresent = index;
 
-*/
-
-const imagesShoppers = document.querySelectorAll('.shoppers__item'),
-    sliderLineShoppers = document.querySelector('.slider__line'),
-    sliderDots = document.querySelectorAll('.slider__dot'),
-    sliderShoppers = document.querySelector('.slider');
-
-let countShoppers = 0,
-    widthShoppers = sliderShoppers.offsetWidth;
-
-showSlide();
-
-// событие клика на dot
-sliderDots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
+        if (!sliderDotsPresent[index].classList.value.includes('active__dot')) {
+            rollSlider(sliderLinePresent, countPresent, widthPresent, nameSectionPresent);
+            thisSlide(countPresent, sliderDotsPresent);
+        }
+    })
+})
+// событие клика на dot collection
+sliderDotsCollection.forEach((elem, index) => {
+    elem.addEventListener('click', () => {
+        countCollection = index;
+        rollSlider(sliderLineCollection, countCollection, widthCollection, nameSectionCollection);
+        thisSlide(countCollection, sliderDotsCollection);
+    })
+})
+// событие клика на dot shoppers
+sliderDotsShoppers.forEach((elem, index) => {
+    elem.addEventListener('click', () => {
         countShoppers = index;
-        rollSlider();
-        thisSlide(countShoppers);
-
-        // restartIntervalSlide();
+        rollSlider(sliderLineShoppers, countShoppers, widthShoppers, nameSectionShoppers);
+        thisSlide(countShoppers, sliderDotsShoppers);
     })
 })
 // показ слайдов
-function showSlide() {
-    sliderLineShoppers.style.width = widthShoppers * imagesShoppers.length + 'px';
-    imagesShoppers.forEach(item => {
-        item.style.width = widthShoppers + 'px';
+function showSlide(count, nameSection, sliderLine, images) {
+    let width = document.querySelector(`.${nameSection}__slider`).offsetWidth;
+    console.log(width, 'width');
+    sliderLine.style.width = width * images.length + 'px';
+    console.log('sliderLine.style.width', sliderLine.style.width);
+    images.forEach(item => {
+        item.style.width = width + 'px';
         item.style.height = 'auto';
     });
+    rollSlider(sliderLine, count, width, nameSection);
 
-    rollSlider();
+    return width;
 }
-// назад
-function nextSlide() {
-    countShoppers++;
-
-    if (countShoppers >= imagesShoppers.length) {
-        countShoppers = 0;
+// функция вычисления lineWidthPresent
+function calcLineWidthPresent() {
+    lineWidthPresent = 0;
+    for (let i = 0; i < imagesPresent.length; i++) {
+        let imagesPresentStyle = getComputedStyle(imagesPresent[i]);
+        widthImgPresentArr.push(parseInt(imagesPresentStyle.getPropertyValue('max-width')));
+        lineWidthPresent += parseInt(imagesPresentStyle.getPropertyValue('max-width'));
     }
 
-    rollSlider();
-    thisSlide(countShoppers);
-    // restartIntervalSlide();
-}
-// вперед
-function prewSlide() {
-    countShoppers--;
-
-    if (countShoppers < 0) {
-        countShoppers = imagesShoppers.length - 1;
-    }
-
-    rollSlider();
-    thisSlide(countShoppers);
-    // restartIntervalSlide();
+    return (lineWidthPresent + sliderLineColumnGap * (imagesPresent.length - 1));
 }
 // задает шаг смещения слайдов
-function rollSlider() {
-    sliderLineShoppers.style.transform = 'translate(-' + countShoppers * widthShoppers + 'px)';
+function rollSlider(sliderLine, count, width, nameSection) {
+
+    let offset = widthImgPresentArr.reduce((accum, item, index) => {
+
+        if (count >= index) {
+            return accum + item + sliderLineColumnGap;
+        }
+        return accum;
+    })
+
+    if (nameSection === 'present') {
+
+        let rest = lineWidthPresent - width - offset;
+
+        if (rest >= 0) {
+            sliderLine.style.left = -offset + 'px';
+        } else {
+            sliderLine.style.left = -(lineWidthPresent - width) + 'px';
+        }
+
+    } else {
+        sliderLine.style.transform = 'translate(-' + count * width + 'px)';
+    }
 }
 // показывает активный слайд
-function thisSlide(index) {
+function thisSlide(index, sliderDots) {
     sliderDots.forEach(item => item.classList.remove('active__dot'));
     sliderDots[index].classList.add('active__dot');
 }
 
-// Responsive Touch Slider | Swipe Slider
-let start,
-    change;
+// назад
+function nextSlide(count, width, sliderLine, images, sliderDots, nameSection) {
+    count++;
 
-sliderShoppers.addEventListener('dragstart', (e) => {
-    start = e.clientX;
-});
-
-sliderShoppers.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    let touch = e.clientX;
-    change = start - touch;
-});
-
-sliderShoppers.addEventListener('dragend', showSlideDrag);
-
-sliderShoppers.addEventListener('touchstart', (e) => {
-    start = e.touches[0].clientX;
-    console.log(e.touches[0], 'e.touches[0]');
-});
-
-sliderShoppers.addEventListener('touchmove', (e) => {
-    e.preventDefault();
-    let touch = e.touches[0];
-    change = start - touch.clientX;
-});
-
-sliderShoppers.addEventListener('touchend', showSlideDrag);
-
-function showSlideDrag() {
-    if (change > 0) {
-        nextSlide();
-    } else {
-        prewSlide();
+    if (count >= images.length) {
+        count = 0;
     }
+
+    rollSlider(sliderLine, count, width, nameSection);
+    thisSlide(count, sliderDots);
+
+    return count;
+}
+// вперед
+function prewSlide(count, width, sliderLine, images, sliderDots, nameSection) {
+    count--;
+
+    if (count < 0) {
+        count = images.length - 1;
+    }
+
+    rollSlider(sliderLine, count, width, nameSection);
+    thisSlide(count, sliderDots);
+
+    return count;
 }
 
-// слайдер для окон менее 1280px
+// АДАПТИВ ПРИ РЕСАЙЗ ОКНА
 window.addEventListener('resize', () => {
-    if (document.documentElement.clientWidth < 1280) {
-        showSlide();
+    console.log(document.documentElement.clientWidth, 'ПРОВЕРКА РЕСАЙЗ');
+    if (document.documentElement.clientWidth < 460) {
+        document.querySelector('.present__dot:last-child').style.display = 'block';
+        widthPresent = document.querySelector('.present__slider').offsetWidth;
+        rollSlider(sliderLinePresent, countPresent, widthPresent, nameSectionPresent);
+        thisSlide(countPresent, sliderDotsPresent);
+    } else {
+        document.querySelector('.present__dot:last-child').style.display = '';
+
+        if (document.documentElement.clientWidth < 1130) {
+            widthPresent = document.querySelector('.present__slider').offsetWidth;
+            rollSlider(sliderLinePresent, countPresent, widthPresent, nameSectionPresent);
+            thisSlide(countPresent, sliderDotsPresent);
+        } else {
+            widthPresent = lineWidthPresent;
+            sliderLinePresent.style.left = '';
+        }
     }
+
+    if (document.documentElement.clientWidth < 1570) {
+        lineWidthPresent = calcLineWidthPresent();
+        sliderLinePresent.style.width = lineWidthPresent + 'px';
+        subtitlePresent.textContent = '13 лет одеваем людей с хорошим вкусом!';
+    } else {
+        sliderLinePresent.style.width = '';
+        subtitlePresent.textContent = 'Ведущие бренды люкс и премиум-класса';
+    }
+
+    if (document.documentElement.clientWidth >= 1280) {
+        sliderLineCollection.style.width = document.querySelector('.collection__slider').offsetWidth + 'px';
+    } else {
+        widthCollection = showSlide(countCollection, nameSectionCollection, sliderLineCollection, imagesCollection, nameSectionCollection);
+        widthShoppers = showSlide(countShoppers, nameSectionShoppers, sliderLineShoppers, imagesShoppers, nameSectionShoppers);
+    }
+
 });
+
+// ___________________________________________________________________
+// Responsive Touch Slider | Swipe Slider
+let start, change;
+console.log(sliderTouch, 'sliderTouch');
+sliderTouch.forEach((item) => {
+    console.log(item);
+    item.addEventListener('dragstart', (e) => {
+        start = e.clientX;
+    })
+
+    item.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        let touch = e.clientX;
+        change = start - touch;
+    })
+
+    item.addEventListener('dragend', checkVarChange);
+
+    item.addEventListener('touchstart', (e) => {
+        start = e.touches[0].clientX;
+    })
+
+    item.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        let touch = e.touches[0];
+        change = start - touch.clientX;
+    })
+
+    item.addEventListener('touchend', checkVarChange);
+
+    function checkVarChange() {
+
+        if (change > 0) {
+
+            if (item.id === 'touchCollection') {
+                countCollection = nextSlide(countCollection, widthCollection, sliderLineCollection, imagesCollection, sliderDotsCollection, nameSectionCollection);
+            } else if (item.id === 'touchShoppers') {
+                countShoppers = nextSlide(countShoppers, widthShoppers, sliderLineShoppers, imagesShoppers, sliderDotsShoppers, nameSectionShoppers);
+            } else {
+                countPresent = nextSlide(countPresent, widthPresent, sliderLinePresent, imagesPresent, sliderDotsPresent, nameSectionPresent);
+            }
+
+        } else {
+
+            if (item.id === 'touchCollection') {
+                countCollection = prewSlide(countCollection, widthCollection, sliderLineCollection, imagesCollection, sliderDotsCollection, nameSectionCollection);
+            } else if (item.id === 'touchShoppers') {
+                countShoppers = prewSlide(countShoppers, widthShoppers, sliderLineShoppers, imagesShoppers, sliderDotsShoppers, nameSectionShoppers);
+            } else {
+                countPresent = prewSlide(countPresent, widthPresent, sliderLinePresent, imagesPresent, sliderDotsPresent, nameSectionPresent);
+            }
+        }
+    }
+})
+
+
+
+
+
+
 
